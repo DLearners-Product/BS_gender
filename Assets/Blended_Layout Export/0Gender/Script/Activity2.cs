@@ -30,7 +30,7 @@ public class Activity2 : MonoBehaviour
                 GA_Questions[i].SetActive(false);
             }
             GA_Questions[I_Qcount].SetActive(true);
-            GA_Questions[I_Qcount].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
+            //GA_Questions[I_Qcount].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
         }
         else
         {
@@ -47,13 +47,13 @@ public class Activity2 : MonoBehaviour
             if (dummy.tag == "answer")
             {
                 dummy.GetComponent<Image>().color = Color.green;
-                GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.green;
-                GA_Questions[I_Qcount].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+                //GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.green;
+                //GA_Questions[I_Qcount].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
             }
             else
             {
                 dummy.GetComponent<Image>().color = Color.red;
-                GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.red;
+               //GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.red;
                 Invoke("THI_normal", 1f);
             }
         }
@@ -63,7 +63,7 @@ public class Activity2 : MonoBehaviour
     public void THI_normal()
     {
         dummy.GetComponent<Image>().color = Color.white;
-        GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.white;
+       // GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.white;
         B_Canclick = true;
     }
 
