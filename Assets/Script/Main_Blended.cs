@@ -75,6 +75,10 @@ public class Main_Blended : MonoBehaviour
     public string[] TEACHER_INSTRUCTION;
     public bool[] HAS_VIDEO;
     public bool[] HAS_WORKSHEET;
+    // Grammer and Syllable
+    public bool[] HAS_SYLLABLE;
+    public bool[] HAS_GRAMMER;
+
 
     // emerson -- project blue
 
@@ -116,6 +120,7 @@ public class Main_Blended : MonoBehaviour
     public string STR_API;
     public bool B_Reader;
 
+  
     void Awake()
     {
         /*SLIDE_NAMES = new string[MAX_SLIDES];
@@ -787,7 +792,9 @@ public class Main_Blended : MonoBehaviour
         {
             Destroy(G_currenlevel);
         }
-        var currentLevel = Instantiate(GA_levelsIG[levelno]);
+        //var currentLevel = Instantiate(GA_levelsIG[levelno]);
+        BlendedOperations.instance.AddButtonToSyllabifyingTC();
+        var currentLevel = Instantiate(MainBlendedData.instance.slideDatas[levelno].slideObject);
         currentLevel.transform.SetParent(GameObject.Find("Game_Panel").transform, false);
         currentLevel.transform.SetAsFirstSibling();
         G_currenlevel = currentLevel;
