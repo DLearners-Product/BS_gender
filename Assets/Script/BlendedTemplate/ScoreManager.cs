@@ -91,17 +91,17 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void RightAnswer(int questionIndex, int scorevalue = 1, string questionValue=null){
-        if(questionValue != null)
-            lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].question = questionValue;
         THI_InitialiseGameActivity(questionIndex);
+        if (questionValue != null)
+            lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].question = questionValue;
         lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].tries++;
         lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].score += scorevalue;
     }
 
     public void WrongAnswer(int questionIndex, int scorevalue = 1, string questionValue=null){
-        if(questionValue != null)
-            lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].question = questionValue;
         THI_InitialiseGameActivity(questionIndex);
+        if (questionValue != null)
+            lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].question = questionValue;
         lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].tries++;
         lessonGameActivityDatas[Main_Blended.OBJ_main_blended.levelno].slideActivities[questionIndex].failures += scorevalue;
     }

@@ -17,6 +17,7 @@ public class Activity2 : MonoBehaviour
     {
         I_Qcount = -1;
         showquestion();
+        ScoreManager.instance.InstantiateScore(GA_Questions.Length);
     }
 
     public void showquestion()
@@ -46,12 +47,15 @@ public class Activity2 : MonoBehaviour
             B_Canclick = false;
             if (dummy.tag == "answer")
             {
-                dummy.GetComponent<Image>().color = Color.green;
+                ScoreManager.instance.RightAnswer(I_Qcount, 1,GA_Questions[I_Qcount].transform.GetChild(1).GetComponent<Image>().name);
+
+               dummy.GetComponent<Image>().color = Color.green;
                 //GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.green;
                 //GA_Questions[I_Qcount].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
             }
             else
             {
+                ScoreManager.instance.WrongAnswer(I_Qcount);
                 dummy.GetComponent<Image>().color = Color.red;
                //GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.red;
                 Invoke("THI_normal", 1f);

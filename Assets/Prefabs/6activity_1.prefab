@@ -134,7 +134,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702042350436}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -283,7 +283,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702065560880}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -523,7 +523,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702087607700}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -747,7 +747,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702108877586}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1125,7 +1125,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702120803446}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1153,7 +1153,7 @@ GameObject:
   - component: {fileID: 5603625702126861297}
   - component: {fileID: 5603625702126861296}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: king
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1819,7 +1819,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702296963576}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2481,7 +2481,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702337103936}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2784,7 +2784,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702361159572}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2933,7 +2933,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702385452890}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3082,7 +3082,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702395392211}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3110,7 +3110,7 @@ GameObject:
   - component: {fileID: 5603625702399614154}
   - component: {fileID: 5603625702399614153}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: prince
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3427,7 +3427,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702435619726}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3730,7 +3730,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702446464441}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3879,7 +3879,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702448624410}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4290,7 +4290,7 @@ GameObject:
   - component: {fileID: 5603625702474601411}
   - component: {fileID: 5603625702474601410}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: cow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4629,7 +4629,7 @@ GameObject:
   - component: {fileID: 5603625702611787355}
   - component: {fileID: 5603625702611787354}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: lion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4995,7 +4995,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702649987915}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -5023,7 +5023,7 @@ GameObject:
   - component: {fileID: 5603625702650534683}
   - component: {fileID: 5603625702650534682}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: boy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5474,7 +5474,7 @@ GameObject:
   - component: {fileID: 5603625702692658849}
   - component: {fileID: 5603625702692658848}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: father
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5686,7 +5686,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702699108450}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -5967,7 +5967,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702723395702}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -6882,7 +6882,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702867164630}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -7260,7 +7260,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702969349827}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -7409,7 +7409,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625702991015256}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -8020,7 +8020,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703044444565}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -8323,7 +8323,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703069046318}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -8513,7 +8513,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703122804971}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -9642,7 +9642,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703212790792}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10253,7 +10253,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703242699705}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10281,7 +10281,7 @@ GameObject:
   - component: {fileID: 5603625703251925278}
   - component: {fileID: 5603625703251925277}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: peahen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10493,7 +10493,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703284128012}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10733,7 +10733,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703303779712}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -11007,7 +11007,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703315290906}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -11156,7 +11156,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703318005468}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -11275,7 +11275,7 @@ GameObject:
   - component: {fileID: 5603625703336413943}
   - component: {fileID: 5603625703336413942}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12583,7 +12583,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703513866264}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -12886,7 +12886,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703565721913}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13035,7 +13035,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703632834078}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13184,7 +13184,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703645451032}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13424,7 +13424,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703706589501}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13846,7 +13846,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703759791798}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -13995,7 +13995,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703764209151}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -14738,7 +14738,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703813183578}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -15132,7 +15132,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703885038490}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -15431,7 +15431,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703912824381}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -15459,7 +15459,7 @@ GameObject:
   - component: {fileID: 5603625703912986896}
   - component: {fileID: 5603625703912986903}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: brother
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15942,7 +15942,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703977935674}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -16091,7 +16091,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625703985865752}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -16422,7 +16422,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625704017416652}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -16706,7 +16706,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5603625704048500880}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -16734,7 +16734,7 @@ GameObject:
   - component: {fileID: 5603625704070988439}
   - component: {fileID: 5603625704070988438}
   m_Layer: 5
-  m_Name: Qimage
+  m_Name: rooster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

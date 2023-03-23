@@ -21,7 +21,7 @@ public class dragmain : MonoBehaviour
         OBJ_dragmain = this;
         I_Qcount = -1;
         G_final.SetActive(false);
-        
+        ScoreManager.instance.InstantiateScore(GA_Questions.Length);
         showquestion();
     }
     public void showquestion()
@@ -53,6 +53,7 @@ public class dragmain : MonoBehaviour
     }
     public void THI_correct()
     {
+        ScoreManager.instance.RightAnswer(I_Qcount, 1, GA_Questions[I_Qcount].transform.GetChild(1).transform.GetChild(0).GetComponentInChildren<Image>().name);
         G_weighter.GetComponent<Animator>().SetInteger("Cond", 1);
         GA_Questions[I_Qcount].transform.GetChild(0).gameObject.SetActive(true);
         AS_crt.Play();
@@ -60,6 +61,7 @@ public class dragmain : MonoBehaviour
     }
     public void THI_wrg()
     {
+        ScoreManager.instance.WrongAnswer(I_Qcount);
         AS_wrg.Play();
     }
     

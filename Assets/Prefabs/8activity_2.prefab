@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 2224020019218590473}
   - component: {fileID: 2224020019218590474}
   m_Layer: 5
-  m_Name: Image
+  m_Name: mother
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4296,7 +4296,7 @@ GameObject:
   - component: {fileID: 2224020020163235062}
   - component: {fileID: 2224020020163235063}
   m_Layer: 5
-  m_Name: Image
+  m_Name: friend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5875,7 +5875,7 @@ GameObject:
   - component: {fileID: 2224020020755056498}
   - component: {fileID: 2224020020755056499}
   m_Layer: 5
-  m_Name: Image
+  m_Name: man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6414,7 +6414,7 @@ GameObject:
   - component: {fileID: 2224020020838759580}
   - component: {fileID: 2224020020838759581}
   m_Layer: 5
-  m_Name: Image
+  m_Name: cousin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6879,7 +6879,7 @@ GameObject:
   - component: {fileID: 2224020020958757426}
   - component: {fileID: 2224020020958757427}
   m_Layer: 5
-  m_Name: Image
+  m_Name: students
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7048,7 +7048,7 @@ GameObject:
   - component: {fileID: 5870499692743182520}
   - component: {fileID: 5870499692743182521}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Rooster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
