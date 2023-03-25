@@ -4467,8 +4467,8 @@ MonoBehaviour:
   STR_Passage: 
   STR_API: https://dlearners.in/source/get_word_data.php
   B_Reader: 0
-  HAS_ACTIVITY: 
-  IS_MANUAL_ACTIVITY: 
+  HAS_ACTIVITY: 00000000000001000100
+  IS_MANUAL_ACTIVITY: 00000000000000000000
 --- !u!82 &2067067675
 AudioSource:
   m_ObjectHideFlags: 0
