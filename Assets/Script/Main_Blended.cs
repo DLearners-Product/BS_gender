@@ -120,7 +120,9 @@ public class Main_Blended : MonoBehaviour
     public string STR_API;
     public bool B_Reader;
 
-  
+    public bool[] HAS_ACTIVITY;
+    public bool[] IS_MANUAL_ACTIVITY;
+
     void Awake()
     {
         /*SLIDE_NAMES = new string[MAX_SLIDES];

@@ -35,6 +35,7 @@ public class Activity2 : MonoBehaviour
         }
         else
         {
+            BlendedOperations.instance.NotifyActivityCompleted();
             G_final.SetActive(true);
         }
 

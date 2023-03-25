@@ -42,6 +42,7 @@ public class dragmain : MonoBehaviour
         }
         else
         {
+            BlendedOperations.instance.NotifyActivityCompleted();
             G_final.SetActive(true);
         }
         
