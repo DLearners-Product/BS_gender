@@ -48,7 +48,8 @@ public class Activity2 : MonoBehaviour
             B_Canclick = false;
             if (dummy.tag == "answer")
             {
-                ScoreManager.instance.RightAnswer(I_Qcount, 1,GA_Questions[I_Qcount].transform.GetChild(1).GetComponent<Image>().name);
+              GameObject  answer = EventSystem.current.currentSelectedGameObject;
+                ScoreManager.instance.RightAnswer(I_Qcount, 1,GA_Questions[I_Qcount].transform.GetChild(1).GetComponent<Image>().name,answer.GetComponentInChildren<Text>().text,false);
 
                dummy.GetComponent<Image>().color = Color.green;
                 //GA_Questions[I_Qcount].transform.GetChild(0).gameObject.transform.GetChild(1).GetComponent<Image>().color = Color.green;

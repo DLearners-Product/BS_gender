@@ -7,8 +7,12 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [SerializeField]
     private VideoPlayer videoPlayer;
+    [SerializeField] private GameObject videoLoading, spawnedLoader;
     public Camera Cam;
     public Image progress;
+    double lastTimePlayed;
+    float waitTime = 3f, 
+            time = 0f;
     
     private void Awake()
     {
@@ -17,8 +21,31 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     private void Update()
     {
+        Check_Video_Buffering();
         if (videoPlayer.frameCount > 0)
             progress.fillAmount = (float)videoPlayer.frame / (float)videoPlayer.frameCount;
+    }
+
+    private void Check_Video_Buffering(){
+        if (videoPlayer.isPlaying && (Time.frameCount % (int)(videoPlayer.frameRate + 1)) == 0)
+        {
+            if (lastTimePlayed == videoPlayer.time)
+            {
+                // Debug.Log($"buffering");
+                time += Time.deltaTime;
+                if(spawnedLoader == null && time > waitTime)
+                    spawnedLoader = Instantiate(videoLoading, gameObject.transform);
+            }
+            else
+            {
+                // Debug.Log($"not buffering");
+                time = 0f;
+                if(spawnedLoader != null)
+                    Destroy(spawnedLoader);
+            }
+            lastTimePlayed = videoPlayer.time;
+        }
+
     }
 
     public void OnDrag(PointerEventData eventData)

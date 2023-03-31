@@ -44,7 +44,7 @@ public class drag : MonoBehaviour, IDragHandler, IEndDragHandler
                 otherGameObject.GetComponent<Image>().enabled = true;
                 otherGameObject.transform.GetChild(0).GetComponent<Text>().text = this.transform.GetChild(0).GetComponent<Text>().text;
                 this.gameObject.SetActive(false);
-                dragmain.OBJ_dragmain.THI_correct();
+                dragmain.OBJ_dragmain.THI_correct(gameObject);
                 this.GetComponent<drag>().enabled = false;
             }
             else

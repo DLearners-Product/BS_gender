@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 610473381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74483beb05e02664dac8bddc28e7e110, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c596336e5f41ca418973b58e06139ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lessonGameActivityDatas: []
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 620087158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aee9e7f104d8564299c37707449fa4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ae52fdfa4b030140a0265993b96b627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slideDatas:
@@ -2951,7 +2951,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2996115347935437161}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4188,8 +4188,8 @@ GameObject:
   - component: {fileID: 2067067673}
   - component: {fileID: 2067067676}
   - component: {fileID: 2067067675}
-  - component: {fileID: 2067067677}
   - component: {fileID: 2067067672}
+  - component: {fileID: 2067067677}
   m_Layer: 5
   m_Name: Blended session
   m_TagString: Untagged
@@ -4291,7 +4291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067067667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe44a21cf461b464e94a54e0462abf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 1108eb4e5d01cfc47867a242441e9279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bridge: {fileID: 2067067677}
@@ -4412,7 +4412,9 @@ MonoBehaviour:
   HAS_VIDEO: 00010000000000010001
   HAS_WORKSHEET: 00000000000001000000
   HAS_SYLLABLE: 00000101010101000000
-  HAS_GRAMMER: 00000000000000000000
+  HAS_GRAMMER: 00000101010101000000
+  HAS_ACTIVITY: 00000000000001000100
+  IS_MANUAL_ACTIVITY: 00000000000000000000
   ImmersiveObjects: []
   BG: {fileID: 0}
   VoiceNumber: 1
@@ -4467,8 +4469,6 @@ MonoBehaviour:
   STR_Passage: 
   STR_API: https://dlearners.in/source/get_word_data.php
   B_Reader: 0
-  HAS_ACTIVITY: 00000000000001000100
-  IS_MANUAL_ACTIVITY: 00000000000000000000
 --- !u!82 &2067067675
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4589,7 +4589,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067067667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0aa5f536adb4a7498ccca45c21c94dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 163137f8101c5d340834b8264a653b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2085694616
@@ -4757,7 +4757,7 @@ PrefabInstance:
     - target: {fileID: 3725847341252804953, guid: 4565e84c14b4e0144a17d0fe94d59f70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3725847341252804953, guid: 4565e84c14b4e0144a17d0fe94d59f70,
         type: 3}
@@ -5205,8 +5205,8 @@ RectTransform:
   - {fileID: 1632552705}
   - {fileID: 1416558736}
   - {fileID: 42575879}
-  - {fileID: 2085694617}
   - {fileID: 1108996925}
+  - {fileID: 2085694617}
   m_Father: {fileID: 2067067671}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

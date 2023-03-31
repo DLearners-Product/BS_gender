@@ -52,9 +52,10 @@ public class dragmain : MonoBehaviour
     {
         showquestion();
     }
-    public void THI_correct()
+    public void THI_correct(GameObject rightObject = null)
     {
-        ScoreManager.instance.RightAnswer(I_Qcount, 1, GA_Questions[I_Qcount].transform.GetChild(1).transform.GetChild(0).GetComponentInChildren<Image>().name);
+         string answer = rightObject.transform.GetChild(0).GetComponent<Text>().text;
+        ScoreManager.instance.RightAnswer(I_Qcount, 1, GA_Questions[I_Qcount].transform.GetChild(1).transform.GetChild(0).GetComponentInChildren<Image>().name,answer,false);
         G_weighter.GetComponent<Animator>().SetInteger("Cond", 1);
         GA_Questions[I_Qcount].transform.GetChild(0).gameObject.SetActive(true);
         AS_crt.Play();

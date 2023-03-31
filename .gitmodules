@@ -1,3 +1,6 @@
 [submodule "Assets/BlendedTemplate"]
 	path = Assets/BlendedTemplate
 	url = https://github.com/DLearners-Product/BS_operation_template.git
+[submodule "Assets/Assets/BlendedTemplate"]
+	path = Assets/Assets/BlendedTemplate
+	url = https://github.com/DLearners-Product/BS_operation_template.git
