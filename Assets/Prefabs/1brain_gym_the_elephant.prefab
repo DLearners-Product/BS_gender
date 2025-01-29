@@ -197,6 +197,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 2204049784888053387}
+  videoLoading: {fileID: 4945578818612628505, guid: 7bbcfff65bcba47eca147f4dd353b3bd,
+    type: 3}
+  videoLoadingErrorPanel: {fileID: 0}
+  spawnedLoader: {fileID: 0}
+  thumbnailTexture: {fileID: 2800000, guid: df137d3836aa39c4e8acb33b22945fbe, type: 3}
   Cam: {fileID: 0}
   progress: {fileID: 2204049786148735215}
 --- !u!1 &2204049785595638507

@@ -38,7 +38,7 @@ public class Main_Blended : MonoBehaviour
 
 
     public VideoPlayer Videoplayerinlevel;
-    bool B_pause;
+    public bool B_pause;
 
 
 
