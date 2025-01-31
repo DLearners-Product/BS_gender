@@ -155,7 +155,7 @@ public class Intro : MonoBehaviour
 
         Utilities.Instance.ANIM_Move(GA_genderMenuPanels[currentSelectedGender].transform, mainMenuObjOrgPos[currentSelectedGender], callBack: () => {
             GA_genderMenuPanels[currentSelectedGender].transform.SetSiblingIndex(currentSelectedGender);
-            EnableOtherMenuObj();
+            EnableAllMenuObj();
             currentSelectedGender = -1;
             panelObj.gameObject.SetActive(false);
             G_back.SetActive(false);
@@ -164,7 +164,7 @@ public class Intro : MonoBehaviour
         Utilities.Instance.ScaleObject(GA_genderMenuPanels[currentSelectedGender].transform, 1.25f, 0.5f);
     }
 
-    void EnableOtherMenuObj()
+    void EnableAllMenuObj()
     {
         for (int i = 0; i < GA_genderMenuPanels.Length; i++)
         {
