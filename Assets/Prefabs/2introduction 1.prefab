@@ -806,7 +806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: da4e9217c1bc84e4fb7be02cdf6d792f, type: 3}
 --- !u!1 &1452856600929813734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 9ac1c0ce230d5a546888012e5f177070, type: 3}
 --- !u!1 &1452856601272235432
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,7 +5602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 8300000, guid: 5cc2da498356b1249b391fda4c8e6b43, type: 3}
+  clip: {fileID: 8300000, guid: 85de6d98a1cdb0d4fafdbddf8c358a4f, type: 3}
 --- !u!1 &1452856602055111454
 GameObject:
   m_ObjectHideFlags: 0
@@ -6702,7 +6702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 8300000, guid: cd911e9b63ef479458fd4e18341dbd1a, type: 3}
+  clip: {fileID: 8300000, guid: 2ef84bac94ef1f44aaf13244ff2369ae, type: 3}
 --- !u!1 &1452856602310872035
 GameObject:
   m_ObjectHideFlags: 0
@@ -7992,7 +7992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 64351e29e962f5a4c86fa401ceb24547, type: 3}
 --- !u!1 &1452856602651034484
 GameObject:
   m_ObjectHideFlags: 0
@@ -8276,7 +8276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6472436394668459520}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: c6338c05ea1bf674dbd8ed4c19431f7d, type: 3}
 --- !u!1 &1452856602739476560
 GameObject:
   m_ObjectHideFlags: 0
@@ -8625,7 +8625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: lioness
+  m_text: doctor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
   m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
