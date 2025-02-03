@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 3ae4ef5f77e5b84449eb8ba413956572
+guid: 03a4f8ea98f399b4b922da785d930f13
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5328332788402992666
-    second: baby_0
+      213: 8353526321278167776
+    second: T 3 panel_0
+  - first:
+      213: -8945918734072813090
+    second: T 3 panel_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -102,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: baby_0
+      name: T 3 panel_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 119
-        width: 464
-        height: 262
+        x: 112
+        y: 1296
+        width: 148
+        height: 720
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,8 +119,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a16b3d9b07a02f940800000000000000
-      internalID: 5328332788402992666
+      spriteID: 0ea29a92eefade370800000000000000
+      internalID: 8353526321278167776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 3 panel_1
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1072
+        width: 556
+        height: 928
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed9e3121f46b9d380800000000000000
+      internalID: -8945918734072813090
       vertices: []
       indices: 
       edges: []
