@@ -14,7 +14,9 @@ public class Thumbnail4Controller : MonoBehaviour
     public AudioClip[] contentClips;
     public AnimationClip panel1ChangeAnimClip, pane2ChangeAnimClip;
     public Button backBTN;
+    public GameObject activityCompleted;
     int currentContentIndex = 0;
+    GameObject currentSelcetedContent;
 
     void Start()
     {
@@ -40,6 +42,9 @@ public class Thumbnail4Controller : MonoBehaviour
 
     public void OnNextBTNClicked()
     {
+        if(currentContentIndex == panel1Contents.Length) {activityCompleted.SetActive(true); return;}
+
+        DisablePreviousContent();
         backBTN.interactable = false;
         panel1.GetComponent<Animator>().Play("panel1_change");
         panel2.GetComponent<Animator>().Play("panel2_change");
@@ -63,8 +68,27 @@ public class Thumbnail4Controller : MonoBehaviour
 
     public void OnContentImageClicked()
     {
-        var selectedObject = EventSystem.current.currentSelectedGameObject;
-        selectedObject.GetComponent<AudioSource>().Play();
+        DisablePreviousContent();
+        currentSelcetedContent = EventSystem.current.currentSelectedGameObject;
+        currentSelcetedContent.GetComponent<AudioSource>().Play();
+        currentSelcetedContent.transform.GetChild(0).GetComponent<Animator>().Play("mouth_speak");
+        Invoke(nameof(DisableAnimation), currentSelcetedContent.GetComponent<AudioSource>().clip.length);
+    }
+
+    void DisablePreviousContent()
+    {
+        if(currentSelcetedContent != null)
+        {
+            currentSelcetedContent.GetComponent<AudioSource>().Stop();
+            DisableAnimation();
+        }
+    }
+
+    void DisableAnimation()
+    {
+        if(currentSelcetedContent == null) return;
+        currentSelcetedContent.transform.GetChild(0).GetComponent<Animator>().Play("New State");
+        currentSelcetedContent = null;
     }
 
     void RemoveOLDSprite()
