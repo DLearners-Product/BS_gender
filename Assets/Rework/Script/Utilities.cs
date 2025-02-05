@@ -205,6 +205,12 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Play();
     }
 
+    public void ANIM_ScaleEffect(Transform sacleObj, Vector3 scaleSize, TweenCallback callback = null)
+    {
+        Tween _tween = sacleObj.DOScale(scaleSize, 0.5f);
+        _tween.onComplete += callback;
+    }
+
     public void ANIM_FlyIn(Transform obj) => obj.DOMoveY(-1.6f, 2f).SetEase(Ease.OutCirc);
     // public void ANIM_FlyIn(Transform obj) => obj.DOMove(new Vector3(obj.transform.position.x, -1.6f, 0), 2f).SetEase(Ease.OutCirc);
 
