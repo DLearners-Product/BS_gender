@@ -20,6 +20,8 @@ public class Thumbnail5Controller : MonoBehaviour
     [SerializeField] Transform displayPanel;
     [SerializeField] TextMeshProUGUI displayText;
     [SerializeField] string[] displayPanels;
+    [SerializeField] AudioClip[] genderPanelAudioClip;
+    [SerializeField] GameObject activityCompleted;
     List<string> birds = new List<string>(){"drake", "duck"};
     int contentIndex = 0;
     List<EnvironmentData> currentEnv;
@@ -28,7 +30,13 @@ public class Thumbnail5Controller : MonoBehaviour
     void Start()
     {
         currentCattleData = maleCattleData;
-        ShowContent();
+        PlayGenderTypeAudio(genderPanelAudioClip[0]);
+    }
+
+    void PlayGenderTypeAudio(AudioClip playClip)
+    {
+        AudioManager.PlayAudio(playClip);
+        Invoke(nameof(ShowContent), playClip.length);
     }
 
     void ShowContent()
@@ -58,6 +66,21 @@ public class Thumbnail5Controller : MonoBehaviour
         bakcBTN.interactable = false;
         RemoveCurrentEnv(currentEnv, currentEnv.Count - 1);
     }
+
+    void ChangeAnimal()
+    {
+        ++contentIndex;
+        if(contentIndex == maleCattleData.Count && currentCattleData == femaleCattleData)
+        {
+            activityCompleted.SetActive(true);
+        } else if (contentIndex == maleCattleData.Count) {
+            contentIndex = 0;
+            currentCattleData = femaleCattleData;
+            ShrinkPanelAndExpand();
+        } else
+            ShowContent();
+    }
+
 
 #region ANIMATION
 
@@ -93,7 +116,7 @@ public class Thumbnail5Controller : MonoBehaviour
 
     void RemoveAnimal()
     {
-        currentCattleData[contentIndex].ResetPosition(()=>{ ++contentIndex; ShowContent(); });
+        currentCattleData[contentIndex].ResetPosition(ChangeAnimal);
     }
 
     void ShrinkPanelAndExpand()
@@ -101,6 +124,7 @@ public class Thumbnail5Controller : MonoBehaviour
         Utilities.Instance.ANIM_ScaleEffect(displayPanel, new Vector3(0, 1, 1), () => {
             displayText.text = displayPanels[1];
             Utilities.Instance.ANIM_ScaleEffect(displayPanel, Vector3.one);
+            PlayGenderTypeAudio(genderPanelAudioClip[1]);
         });
     }
 
@@ -109,15 +133,18 @@ public class Thumbnail5Controller : MonoBehaviour
     [Serializable]
     class CattleData
     {
-        public Sprite cattleSprite;
         public GameObject cattleObject;
         public string cattleType;
+        public AudioClip cattleName;
         Vector3 originalPosition;
 
         public void MoveTo(Transform targetPos, Action callBack = null)
         {
             originalPosition = cattleObject.transform.position;
-            Utilities.Instance.ANIM_Move(cattleObject.transform, targetPos.position, callBack : ()=>{callBack();});
+            Utilities.Instance.ANIM_Move(cattleObject.transform, targetPos.position, callBack : ()=>{
+                AudioManager.PlayAudio(cattleName);
+                callBack();
+            });
         }
 
         public void ResetPosition(Action callBack = null)
