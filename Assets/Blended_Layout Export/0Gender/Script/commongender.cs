@@ -8,7 +8,7 @@ public class commongender : MonoBehaviour
     public GameObject[] GA_Objects;
     public int I_count;
     public GameObject G_final;
-    // Start is called before the first frame update
+
     void Start()
     {
         G_final.SetActive(false);
