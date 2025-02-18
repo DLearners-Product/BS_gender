@@ -173,6 +173,25 @@ public class Utilities : MonoGenericSingleton<Utilities>
         tween.onComplete += callback;
     }
 
+    public void ANIM_ShrinkOnPosition(Transform obj, Vector3 shrinkObj, float actionTime = 0.5f, TweenCallback callback = null)
+    {
+        var tween = obj.DOScale(shrinkObj, actionTime);
+        tween.onComplete += callback;
+    }
+
+    public void ANIM_JumpWithEffect(Transform obj, float actionTime = 0.5f, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOScaleY(1.5f, 0.5f));
+        seq.Append(obj.DOScaleY(0.75f, 0.25f));
+        seq.Append(obj.DOScaleY(1.25f, 0.5f));
+        seq.Append(obj.DOScaleY(0.85f, 0.25f));
+        seq.Append(obj.DOScaleY(1.15f, 0.5f));
+        seq.Append(obj.DOScaleY(0.95f, 0.25f));
+        seq.Append(obj.DOScaleY(1f, 0.25f));
+        seq.Play();
+    }
+
     public void ANIM_ShakeObj(Transform obj)
     {
         Sequence seq = DOTween.Sequence();
