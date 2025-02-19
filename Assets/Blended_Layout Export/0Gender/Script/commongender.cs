@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class commongender : MonoBehaviour
@@ -12,12 +14,16 @@ public class commongender : MonoBehaviour
                     displayPosition,
                     endPosition;
     public DotNavigation dotNavigation;
+    public TextMeshProUGUI displayText;
 
     [Header("Animation")]
     public Transform boardObj;
+    public Transform nxtBtn, backBtn;
 
     private void Awake() {
         dotNavigation.maxCount = GA_Objects.Length;
+        nxtBtn.gameObject.SetActive(false);
+        backBtn.gameObject.SetActive(false);
     }
 
     void Start()
@@ -34,18 +40,22 @@ public class commongender : MonoBehaviour
         // showobject(displayPosition);
     }
 
-    public void showobject(Transform targetPosition)
+    public void Showobject(Transform targetPosition, Action callBackFunc = null)
     {
-        Utilities.Instance.ANIM_Move(GA_Objects[I_count].transform, targetPosition.position);
+        Utilities.Instance.ANIM_Move(GA_Objects[I_count].transform, targetPosition.position, callBack: ()=>{
+            callBackFunc();
+        });
     }
 
     public void BUT_next()
     {
         if(I_count<GA_Objects.Length-1)
         {
-            showobject(endPosition);
+            Showobject(endPosition);
             I_count++;
-            showobject(displayPosition);
+            Showobject(displayPosition, () => {
+                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            });
             dotNavigation.OnClickNextButton();
         }
         else
@@ -58,9 +68,11 @@ public class commongender : MonoBehaviour
     {
         if (I_count >0)
         {
-            showobject(startPosition);
+            Showobject(startPosition);
             I_count--;
-            showobject(displayPosition);
+            Showobject(displayPosition, () => {
+                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            });
             dotNavigation.OnClickBackButton();
         }
     }
@@ -72,10 +84,22 @@ public class commongender : MonoBehaviour
 
 #region ANIMATION
 
-    public void ShowBoard()
+    void ShowBoard()
     {
         Utilities.Instance.ANIM_ShrinkOnPosition(boardObj, new Vector3(1, 0, 1), 0f);
-        Utilities.Instance.ANIM_JumpWithEffect(boardObj);
+        Utilities.Instance.ANIM_BounceEffect(boardObj, callback: MoveNextBackButton);
+    }
+
+    void MoveNextBackButton()
+    {
+        nxtBtn.gameObject.SetActive(true);
+        backBtn.gameObject.SetActive(true);
+        Utilities.Instance.ANIM_Move(nxtBtn, (nxtBtn.position + (Vector3.right * 1.5f)));
+        Utilities.Instance.ANIM_Move(backBtn, (backBtn.position + (Vector3.left * 1.5f)), callBack: () => {
+            Showobject(displayPosition, () => {
+                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            });
+        });
     }
 
 #endregion
