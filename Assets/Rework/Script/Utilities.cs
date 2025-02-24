@@ -18,6 +18,12 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.Play();
     }
 
+    public void ANIM_RotateObj(Transform obj, Vector3 rotateDirection, float duration = 0.5f)
+    {
+        Tween _tween = obj.DORotate(rotateDirection, 0.5f);
+        _tween.Play();
+    }
+
     public void ANIM_ShowBounceNormal(Transform obj, float enlargeScaleUpTime = 0.25f, float shrinkUpTime = 0.5f, TweenCallback callback=null)
     {
         Sequence sequence = DOTween.Sequence();
