@@ -16,6 +16,7 @@ public class Thumbnail7Controller : MonoBehaviour
     public GameObject seesawObj;
     public Image maledisplayObj, femaledisplayObj;
     public List<MaleFemalePair> matchAnswers;
+    public GameObject gameOverObj;
 
     Transform[] _maleoptionSpawnPoints,
                 _femaleoptionSpawnPoints;
@@ -56,8 +57,7 @@ public class Thumbnail7Controller : MonoBehaviour
         if(index == spawnSprites.Length) return;
 
         int _childCount = parentObj.childCount;
-        // for (int i = 0; i < _childCount; i++)
-        // {
+
         var spawnedObj = Instantiate(optionDisplayObj, parentObj);
         spawnedObj.transform.position = Vector3.zero;
         spawnedObj.transform.GetChild(0).GetComponent<Image>().sprite = spawnSprites[index];
@@ -66,7 +66,7 @@ public class Thumbnail7Controller : MonoBehaviour
             spawnedObj.GetComponent<FloatingObject>().enabled = true; 
             SpawnOptions(parentObj, spawnSprites, spawnPositions, ++index);
         });
-        // }
+
     }
 
     void AssignImageDisplay(Image sourceObj, Image destinationObj)
@@ -87,6 +87,22 @@ public class Thumbnail7Controller : MonoBehaviour
         return null;
     }
 
+    void MakeChildSad()
+    {
+        seesawObj.transform.GetChild(0).gameObject.SetActive(false);
+        seesawObj.transform.GetChild(1).gameObject.SetActive(false);
+        seesawObj.transform.GetChild(2).gameObject.SetActive(true);
+        seesawObj.transform.GetChild(3).gameObject.SetActive(true);
+    }
+
+    void MakeChildSmile()
+    {
+        seesawObj.transform.GetChild(0).gameObject.SetActive(true);
+        seesawObj.transform.GetChild(1).gameObject.SetActive(true);
+        seesawObj.transform.GetChild(2).gameObject.SetActive(false);
+        seesawObj.transform.GetChild(3).gameObject.SetActive(false);
+    }
+
     void EvaluateAnswer()
     {
         if(!_maleSelected || !_femaleSelected) return;
@@ -96,10 +112,16 @@ public class Thumbnail7Controller : MonoBehaviour
 
         var pairObj = GetPair(malePairName);
 
+        PlaySeeSaw(SeesawState.PlaySeeSaw);
+
         if(feMalePairName.Contains(pairObj.femalePairAnimal))
         {
-            
-        }else{ ReleaseSelectedObjs(); }
+            Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: ResetSelectedObjs);
+            Utilities.Instance.ANIM_CorrectScaleEffect(femaledisplayObj.transform.parent, callback: MakeChildSmile);
+        }else{
+            Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: ReleaseSelectedObjs);
+            Utilities.Instance.ANIM_WrongEffect(femaledisplayObj.transform.parent.GetComponent<Image>(), callback: MakeChildSad);
+        }
     }
 
     void ReleaseSelectedObjs()
@@ -107,24 +129,47 @@ public class Thumbnail7Controller : MonoBehaviour
         _selectedMaleObj.gameObject.SetActive(true);
         _selectedFemaleObj.gameObject.SetActive(true);
 
-        maledisplayObj.gameObject.SetActive(false);
-        femaledisplayObj.gameObject.SetActive(false);
-
-        _maleSelected = false;
-        _femaleSelected = false;
 
         Utilities.Instance.ANIM_Move(_selectedMaleObj, _selectedMaleOrgPos);
         Utilities.Instance.ANIM_Move(_selectedFemaleObj, _selectedFemaleOrgPos);
+        ResetSelectedObjs();
     }
 
-    void PlaySeeSaw()
+    void ResetSelectedObjs()
     {
-        if(_leanOnRight){
-            Utilities.Instance.ANIM_RotateObj(seesawObj.transform, new Vector3(0, 0, -10));
-            _leanOnRight = false;
-        }else{
-            Utilities.Instance.ANIM_RotateObj(seesawObj.transform, new Vector3(0, 0, 10));
-            _leanOnRight = true;
+        _maleSelected = false;
+        _femaleSelected = false;
+        _selectedMaleObj = null;
+        _selectedFemaleObj = null;
+        _selectedMaleOrgPos = Vector3.zero;
+        _selectedFemaleOrgPos = Vector3.zero;
+        maledisplayObj.gameObject.SetActive(false);
+        femaledisplayObj.gameObject.SetActive(false);
+    }
+
+    void PlaySeeSaw(SeesawState seesawState)
+    {
+        switch (seesawState)
+        {
+            case SeesawState.LowerBoy:
+                Utilities.Instance.ANIM_RotateObj(seesawObj.transform, new Vector3(0, 0, 10));
+                break;
+            case SeesawState.LowerGirl:
+                Utilities.Instance.ANIM_RotateObj(seesawObj.transform, new Vector3(0, 0, -10));
+                break;
+            case SeesawState.PlaySeeSaw:
+                Vector3 rotateDirection;
+                float rotatedDir = Mathf.Round(seesawObj.transform.eulerAngles.z);
+                
+                if(rotatedDir == 10)
+                {
+                    rotateDirection = new Vector3(0, 0, -10);
+                }else{
+                    rotateDirection = new Vector3(0, 0, 10);
+                }
+
+                Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection);
+                break;
         }
     }
 
@@ -150,11 +195,15 @@ public class Thumbnail7Controller : MonoBehaviour
             _selectedMaleObj = clickedObj;
             _maleSelected = true;
             destinationObj = maledisplayObj;
+
+            PlaySeeSaw(SeesawState.LowerBoy);
         }else{
             _selectedFemaleOrgPos = clickedObj.position;
             _selectedFemaleObj = clickedObj;
             _femaleSelected = true;
             destinationObj = femaledisplayObj;
+
+            PlaySeeSaw(SeesawState.LowerGirl);
         }
 
         Utilities.Instance.ANIM_Move(clickedObj, destinationObj.transform.position, callBack: () => {
@@ -162,14 +211,22 @@ public class Thumbnail7Controller : MonoBehaviour
             destinationObj.gameObject.SetActive(true);
             clickedObj.gameObject.SetActive(false);
             Invoke(nameof(EvaluateAnswer), 0.5f);
+            // EvaluateAnswer();
         });
     }
 #endregion
 
-[Serializable]
-public class MaleFemalePair
-{
-    public string maleAnimal;
-    public string femalePairAnimal;
-}
+    enum SeesawState
+    {
+        LowerBoy,
+        LowerGirl,
+        PlaySeeSaw
+    }
+
+    [Serializable]
+    public class MaleFemalePair
+    {
+        public string maleAnimal;
+        public string femalePairAnimal;
+    }
 }

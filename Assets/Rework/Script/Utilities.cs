@@ -114,17 +114,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Play();
     }
 
-    public void ANIM_CorrectScaleEffect(Transform obj) => StartCoroutine(IENUM_Hearbeat(obj));
-
-    IEnumerator IENUM_Hearbeat(Transform obj)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            obj.DOScale(new Vector3(1.25f, 1.25f, 1), 0.5f);
-            yield return new WaitForSeconds(0.25f);
-            obj.DOScale(new Vector3(1, 1, 1), 0.5f);
-            yield return new WaitForSeconds(0.25f);
-        }
+    public void ANIM_CorrectScaleEffect(Transform obj, TweenCallback callback = null) {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOScale(new Vector3(1.25f, 1.25f, 1), 0.25f));
+        seq.Append(obj.DOScale(new Vector3(1, 1, 1), 0.25f));
+        seq.SetLoops(3);
+        seq.onComplete += callback;
+        seq.Play();
     }
 
     public void ANIM_WrongShakeEffect(Transform obj) => StartCoroutine(IENUM_HeadShake(obj));
@@ -235,6 +231,27 @@ public class Utilities : MonoGenericSingleton<Utilities>
     {
         Tween _tween = sacleObj.DOScale(scaleSize, 0.5f);
         _tween.onComplete += callback;
+    }
+
+    public void ANIM_WrongEffect(Image obj, float duration = 0.5f, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOColor(Color.red, duration));
+        seq.Append(obj.DOColor(Color.white, duration));
+        seq.SetLoops(3);
+        seq.onComplete += callback;
+        seq.Play();
+    }
+
+    public void ANIM_PlaySeeSaw(Transform obj, Vector3 rotationDirection)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DORotate(rotationDirection, 0.5f));
+        seq.Append(obj.DORotate(-rotationDirection, 0.5f));
+        // seq.Append(obj.DORotate(rotationDirection, 0.5f));
+        // seq.Append(obj.DORotate(-rotationDirection, 0.5f));
+        seq.SetLoops(3);
+        seq.Play();
     }
 
     public void ANIM_FlyIn(Transform obj) => obj.DOMoveY(-1.6f, 2f).SetEase(Ease.OutCirc);
