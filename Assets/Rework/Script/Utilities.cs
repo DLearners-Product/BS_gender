@@ -9,7 +9,12 @@ using System;
 public class Utilities : MonoGenericSingleton<Utilities>
 {
 
-    public void ANIM_ShowNormal(Transform obj, float duration=0.5f) => obj.DOScale(Vector3.one, duration);
+    public void ANIM_ShowNormal(Transform obj, float duration=0.5f, TweenCallback callback=null)
+    {
+        Tween _tween = obj.DOScale(Vector3.one, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
+    }
 
     public void ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f, TweenCallback callback=null)
     {
