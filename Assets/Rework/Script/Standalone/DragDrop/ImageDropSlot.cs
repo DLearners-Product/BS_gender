@@ -7,14 +7,13 @@ using TMPro;
 public class ImageDropSlot: MonoBehaviour, IDropHandler
 {
     ImageDragandDrop dragitem;
-    public delegate void OnDropInSlotDelegate(GameObject dragedObject);
+    public delegate void OnDropInSlotDelegate(GameObject dragedObject, GameObject dropSlotObject);
     public static OnDropInSlotDelegate onDropInSlot;
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDropCalled...."+eventData.pointerDrag);
         dragitem = eventData.pointerDrag.GetComponent<ImageDragandDrop>();
-        onDropInSlot.Invoke(eventData.pointerDrag);
+        onDropInSlot.Invoke(eventData.pointerDrag, gameObject);
     }
 
     public void SetDropedObject(){

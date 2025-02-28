@@ -33,7 +33,7 @@ public class ImageDragandDrop : MonoBehaviour, IBeginDragHandler,IEndDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        onDragStart.Invoke(eventData.pointerDrag);
+        onDragStart?.Invoke(eventData.pointerDrag);
 
         // this.transform.SetParent(originalParent.parent);
         canvasGroup.alpha = .5f;
@@ -42,7 +42,7 @@ public class ImageDragandDrop : MonoBehaviour, IBeginDragHandler,IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        onDrag.Invoke(eventData.pointerDrag);
+        onDrag?.Invoke(eventData.pointerDrag);
 
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         this.transform.position = mousePos;
@@ -51,12 +51,10 @@ public class ImageDragandDrop : MonoBehaviour, IBeginDragHandler,IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log($"OnEndDragCalled");
-        onDragEnd.Invoke(eventData.pointerDrag);
+        onDragEnd?.Invoke(eventData.pointerDrag);
 
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        Debug.Log(gameObject.transform.parent.name, gameObject.transform.parent);
         if(originalParent.Equals(gameObject.transform.parent) && resetPositionOnDrop){
             ReturnToOriginalPos();
         }

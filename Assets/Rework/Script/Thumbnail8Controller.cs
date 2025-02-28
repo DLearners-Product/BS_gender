@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Thumbnail8Controller : MonoBehaviour
@@ -15,7 +16,7 @@ public class Thumbnail8Controller : MonoBehaviour
     public Transform questionPanel1,
                         questionPanel2,
                         questionPanel3;
-
+    public GameObject displayOptionObj;
     Transform[] _quesitonPanels;
     void Start()
     {
@@ -26,6 +27,12 @@ public class Thumbnail8Controller : MonoBehaviour
 
         OptionSpawnObjBounceEffect();
         ResetQuestionPanelPosition();
+    }
+
+    private void OnEnable() {
+        ImageDragandDrop.onDrag += OnOptionDrag;
+        ImageDragandDrop.onDragEnd += OnOptionObjDragEnd;
+        ImageDropSlot.onDropInSlot += OnOptionObjectDroped;
     }
 
 #region ANIMATION_METHODS
@@ -46,13 +53,13 @@ public class Thumbnail8Controller : MonoBehaviour
     void SpawnQuestion(int spawnIndex = 0)
     {
         if(spawnIndex == _quesitonPanels.Length) return;
+        // Debug.Log($"spawnIndex :: {spawnIndex}");
 
         Utilities.Instance.ANIM_Move(
             _quesitonPanels[spawnIndex], 
             _quesitonPanels[spawnIndex].position + (Vector3.down * 4), 
             callBack: () => {
                 _quesitonPanels[spawnIndex].gameObject.AddComponent<HangingBoardUI>();
-                _quesitonPanels[spawnIndex].GetComponent<ImageDragandDrop>().ResetParentOriginalPosition();
                 SpawnRope(spawnIndex);
                 SpawnQuestion(++spawnIndex);
             }
@@ -62,7 +69,7 @@ public class Thumbnail8Controller : MonoBehaviour
     void SpawnRope(int spawnParentIndex)
     {
         var spawnedRope = Instantiate(ropePrefabObj, _quesitonPanels[spawnParentIndex].parent);
-        Utilities.Instance.ANIM_ShrinkOnPosition(spawnedRope.transform, new Vector3(1, 0, 1), 0f);
+        Utilities.Instance.ANIM_ShrinkOnPosition(spawnedRope.transform, new Vector3(1, 0, 1), 0f, callback: () => spawnedRope.SetActive(true));
         spawnedRope.transform.position = _quesitonPanels[spawnParentIndex].position;
         spawnedRope.transform.SetAsFirstSibling();
         Utilities.Instance.ANIM_ShowNormal(spawnedRope.transform, callback: () => {
@@ -82,8 +89,62 @@ public class Thumbnail8Controller : MonoBehaviour
 
         var spawnedObj = Instantiate<Transform>(optionBoardPrefabObj, stickObj);
         spawnedObj.transform.position = objectSpawnPosition.position;
-        Utilities.Instance.ANIM_Move(spawnedObj, optionPlacementPosition.position + (Vector3.down * spawnIndex), callBack: () => { SpawnOption(++spawnIndex); });
+        spawnedObj.GetChild(0).GetComponent<TextMeshProUGUI>().text = options[spawnIndex];
+
+        Utilities.Instance.ANIM_Move(spawnedObj, optionPlacementPosition.position + (Vector3.down * spawnIndex), callBack: () => { 
+            SpawnOption(++spawnIndex);
+            spawnedObj.GetComponent<ImageDragandDrop>().ResetParentOriginalPosition(); 
+        });
     }
-    
 #endregion
+
+    public void OnOptionDrag(GameObject draggingObj)
+    {
+        float[] distances = new float[_quesitonPanels.Length];
+        int minDistanceIndex = -1;
+        float smallestDis = 0f;
+        for (int i = 0; i < distances.Length; i++)
+        {
+            distances[i] = Vector3.Distance(draggingObj.transform.position, highlightnewObjs[i].transform.position);
+            if(i == 0)
+            {
+                smallestDis = distances[i];
+                minDistanceIndex = i;
+            }else if(distances[i] < smallestDis) {
+                smallestDis = distances[i];
+                minDistanceIndex = i;
+            }
+        }
+        EnableHighlightner(minDistanceIndex);
+    }
+
+    void OnOptionObjDragEnd(GameObject optionObj)
+    {
+        DiableAllHighlightner();
+    }
+
+    void OnOptionObjectDroped(GameObject dragObj, GameObject dropSlotObj)
+    {
+        Destroy(dragObj);
+        var spawnAnswerObj = Instantiate(displayOptionObj, dropSlotObj.transform.parent.GetChild(0));
+        spawnAnswerObj.transform.position = dropSlotObj.transform.position + (Vector3.up * 0.45f);
+        spawnAnswerObj.transform.SetAsFirstSibling();
+        spawnAnswerObj.SetActive(true);
+        dropSlotObj.SetActive(false);
+    }
+
+    void DiableAllHighlightner()
+    {
+        for (int i = 0; i < highlightnewObjs.Length; i++)
+        {
+            highlightnewObjs[i].SetActive(false);
+        }
+    }
+
+    void EnableHighlightner(int enablerIndex)
+    {
+        DiableAllHighlightner();
+
+        highlightnewObjs[enablerIndex].SetActive(true);
+    }
 }
