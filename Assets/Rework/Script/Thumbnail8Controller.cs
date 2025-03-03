@@ -11,13 +11,19 @@ public class Thumbnail8Controller : MonoBehaviour
     public Transform optionPlacementPosition;
     public Transform objectSpawnPosition;
     public GameObject optionDropHighlightner;
-    public string[] options;
     public GameObject[] highlightnewObjs;
     public Transform questionPanel1,
                         questionPanel2,
                         questionPanel3;
     public GameObject displayOptionObj;
+    public Thumbnail8DataStructure[] optionData;
+    public GameObject counterObj;
+    public TextMeshProUGUI textScoreBoard;
+    public GameObject activityCompleted;
+    public AudioClip wrongSFX;
     Transform[] _quesitonPanels;
+    int answeredCount = 0;
+
     void Start()
     {
         _quesitonPanels = new Transform[3];
@@ -27,6 +33,7 @@ public class Thumbnail8Controller : MonoBehaviour
 
         OptionSpawnObjBounceEffect();
         ResetQuestionPanelPosition();
+        UpdateScoreBoard();
     }
 
     private void OnEnable() {
@@ -50,29 +57,37 @@ public class Thumbnail8Controller : MonoBehaviour
         }
     }
 
+    void SpawnCounter()
+    {
+        Utilities.Instance.ANIM_Move(counterObj.transform, counterObj.transform.position + (Vector3.up * 2f));
+    }
+
     void SpawnQuestion(int spawnIndex = 0)
     {
-        if(spawnIndex == _quesitonPanels.Length) return;
-        // Debug.Log($"spawnIndex :: {spawnIndex}");
+        if(spawnIndex == _quesitonPanels.Length) { SpawnCounter(); return; }
 
         Utilities.Instance.ANIM_Move(
             _quesitonPanels[spawnIndex], 
             _quesitonPanels[spawnIndex].position + (Vector3.down * 4), 
             callBack: () => {
                 _quesitonPanels[spawnIndex].gameObject.AddComponent<HangingBoardUI>();
-                SpawnRope(spawnIndex);
+                SpawnRope(spawnIndex, _quesitonPanels[spawnIndex].GetChild(0).position + Vector3.up);
                 SpawnQuestion(++spawnIndex);
             }
         );
     }
 
-    void SpawnRope(int spawnParentIndex)
+    void SpawnRope(int spawnParentIndex, Vector3 palacementPosition)
     {
         var spawnedRope = Instantiate(ropePrefabObj, _quesitonPanels[spawnParentIndex].parent);
         Utilities.Instance.ANIM_ShrinkOnPosition(spawnedRope.transform, new Vector3(1, 0, 1), 0f, callback: () => spawnedRope.SetActive(true));
-        spawnedRope.transform.position = _quesitonPanels[spawnParentIndex].position;
+        // spawnedRope.transform.position = _quesitonPanels[spawnParentIndex].position;
+        // Debug.Log($"placementPosition :: {placementPosition?.name}", placementPosition);
+        // spawnedRope.transform.position = (placementPosition == null) ? _quesitonPanels[spawnParentIndex].position : placementPosition.position;
+        spawnedRope.transform.position = palacementPosition;
         spawnedRope.transform.SetAsFirstSibling();
         Utilities.Instance.ANIM_ShowNormal(spawnedRope.transform, callback: () => {
+            // spawnedRope.AddComponent<HangingBoardUI>();
             MoveHighLightner(spawnParentIndex, spawnedRope.transform);
         });
     }
@@ -85,11 +100,11 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void SpawnOption(int spawnIndex = 0)
     {
-        if(spawnIndex == options.Length) { SpawnQuestion(); return; }
+        if(spawnIndex == optionData.Length) { SpawnQuestion(); return; }
 
         var spawnedObj = Instantiate<Transform>(optionBoardPrefabObj, stickObj);
         spawnedObj.transform.position = objectSpawnPosition.position;
-        spawnedObj.GetChild(0).GetComponent<TextMeshProUGUI>().text = options[spawnIndex];
+        spawnedObj.GetChild(0).GetComponent<TextMeshProUGUI>().text = optionData[spawnIndex].genderName;
 
         Utilities.Instance.ANIM_Move(spawnedObj, optionPlacementPosition.position + (Vector3.down * spawnIndex), callBack: () => { 
             SpawnOption(++spawnIndex);
@@ -125,12 +140,64 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void OnOptionObjectDroped(GameObject dragObj, GameObject dropSlotObj)
     {
+        string droppedGenderName = dragObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        var droppedGender = GetGenderData(droppedGenderName);
+        var dropSlotIndex = GetSpawnIndex(dropSlotObj.transform.parent.name);
+
+        if(!EvaluateAnswer(droppedGender, dropSlotIndex)) { AudioManager.PlayAudio(wrongSFX); return; }
+
         Destroy(dragObj);
+        AudioManager.PlayAudio(droppedGender.genderNameClip);
+
+        answeredCount++;
+        UpdateScoreBoard();
+        if (answeredCount == optionData.Length)
+        {
+            activityCompleted.SetActive(true);
+            return;
+        }
+
         var spawnAnswerObj = Instantiate(displayOptionObj, dropSlotObj.transform.parent.GetChild(0));
         spawnAnswerObj.transform.position = dropSlotObj.transform.position + (Vector3.up * 0.45f);
+        spawnAnswerObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = droppedGenderName;
         spawnAnswerObj.transform.SetAsFirstSibling();
         spawnAnswerObj.SetActive(true);
+        spawnAnswerObj.transform.parent.gameObject.AddComponent<HangingBoardUI>();
+
         dropSlotObj.SetActive(false);
+        SpawnRope(GetSpawnIndex(dropSlotObj.transform.parent.name), (dropSlotObj.transform.parent.GetChild(0).GetChild(0).position + Vector3.up));
+    }
+
+    void EnableActivityCompleted() => activityCompleted.SetActive(true);
+
+    bool EvaluateAnswer(Thumbnail8DataStructure gender, int droppedObjIndx)
+    {
+        return ((int)gender.gender) == droppedObjIndx;
+    }
+
+    Thumbnail8DataStructure GetGenderData(string genderName)
+    {
+        for (int i = 0; i < optionData.Length; i++)
+        {
+            if (optionData[i].genderName.Equals(genderName))
+            {
+                return optionData[i];
+            }
+        }
+        return null;
+    }
+
+    void UpdateScoreBoard()
+    {
+        textScoreBoard.text = $"{answeredCount} / {optionData.Length}";
+    }
+
+    int GetSpawnIndex(string parentObjName)
+    {
+        if(parentObjName.Contains("Q1")) return 0;
+        else if(parentObjName.Contains("Q2")) return 1;
+        else if(parentObjName.Contains("Q3")) return 2;
+        return -1;
     }
 
     void DiableAllHighlightner()
@@ -147,4 +214,20 @@ public class Thumbnail8Controller : MonoBehaviour
 
         highlightnewObjs[enablerIndex].SetActive(true);
     }
+
+}
+
+[System.Serializable]
+public class Thumbnail8DataStructure
+{
+    public string genderName;
+    public Genders gender;
+    public AudioClip genderNameClip;
+}
+
+public enum Genders
+{
+    Masculine,
+    Feminine,
+    Common
 }
