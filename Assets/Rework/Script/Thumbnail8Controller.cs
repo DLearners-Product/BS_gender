@@ -16,7 +16,7 @@ public class Thumbnail8Controller : MonoBehaviour
                         questionPanel2,
                         questionPanel3;
     public GameObject displayOptionObj;
-    public Thumbnail8DataStructure[] optionData;
+    public GenderDataStructure[] optionData;
     public GameObject counterObj;
     public TextMeshProUGUI textScoreBoard;
     public GameObject activityCompleted;
@@ -170,12 +170,12 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void EnableActivityCompleted() => activityCompleted.SetActive(true);
 
-    bool EvaluateAnswer(Thumbnail8DataStructure gender, int droppedObjIndx)
+    bool EvaluateAnswer(GenderDataStructure gender, int droppedObjIndx)
     {
         return ((int)gender.gender) == droppedObjIndx;
     }
 
-    Thumbnail8DataStructure GetGenderData(string genderName)
+    GenderDataStructure GetGenderData(string genderName)
     {
         for (int i = 0; i < optionData.Length; i++)
         {
@@ -218,10 +218,11 @@ public class Thumbnail8Controller : MonoBehaviour
 }
 
 [System.Serializable]
-public class Thumbnail8DataStructure
+public class GenderDataStructure
 {
     public string genderName;
     public Genders gender;
+    public Sprite genderSprite;
     public AudioClip genderNameClip;
 }
 
