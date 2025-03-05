@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using System;
+// using System;
 
 public class Utilities : MonoGenericSingleton<Utilities>
 {
@@ -198,6 +198,20 @@ public class Utilities : MonoGenericSingleton<Utilities>
         seq.Append(obj.DOScaleY(1f, 0.125f));
         seq.OnComplete(callback);
         seq.Play();
+    }
+
+    public void ANIM_BoardHangingEffect(Transform obj, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DORotate(new Vector3(-90, 0, 0), Random.Range(0.7f, 1)));
+        seq.Append(obj.DORotate(new Vector3(50, 0, 0), Random.Range(0.7f, 0.8f)));
+        seq.Append(obj.DORotate(new Vector3(-40, 0, 0), 0.55f));
+        seq.Append(obj.DORotate(new Vector3(30, 0, 0), 0.5f));
+        seq.Append(obj.DORotate(new Vector3(-20, 0, 0), 0.4f));
+        seq.Append(obj.DORotate(new Vector3(5, 0, 0), 0.25f));
+        seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.15f));
+        seq.onComplete += callback;
+        seq.SetEase(Ease.InSine).Play();
     }
 
     public void ANIM_ShakeObj(Transform obj)
