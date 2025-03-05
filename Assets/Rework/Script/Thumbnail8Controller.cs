@@ -71,7 +71,7 @@ public class Thumbnail8Controller : MonoBehaviour
             _quesitonPanels[spawnIndex].position + (Vector3.down * 4), 
             callBack: () => {
                 _quesitonPanels[spawnIndex].gameObject.AddComponent<HangingBoardUI>();
-                SpawnRope(spawnIndex, _quesitonPanels[spawnIndex].GetChild(0).position + Vector3.up);
+                SpawnRope(spawnIndex, _quesitonPanels[spawnIndex].GetChild(0).position + (Vector3.up * 0.55f));
                 SpawnQuestion(++spawnIndex);
             }
         );
@@ -81,9 +81,6 @@ public class Thumbnail8Controller : MonoBehaviour
     {
         var spawnedRope = Instantiate(ropePrefabObj, _quesitonPanels[spawnParentIndex].parent);
         Utilities.Instance.ANIM_ShrinkOnPosition(spawnedRope.transform, new Vector3(1, 0, 1), 0f, callback: () => spawnedRope.SetActive(true));
-        // spawnedRope.transform.position = _quesitonPanels[spawnParentIndex].position;
-        // Debug.Log($"placementPosition :: {placementPosition?.name}", placementPosition);
-        // spawnedRope.transform.position = (placementPosition == null) ? _quesitonPanels[spawnParentIndex].position : placementPosition.position;
         spawnedRope.transform.position = palacementPosition;
         spawnedRope.transform.SetAsFirstSibling();
         Utilities.Instance.ANIM_ShowNormal(spawnedRope.transform, callback: () => {
@@ -94,8 +91,7 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void MoveHighLightner(int parentIndex, Transform spawnPosition)
     {
-        highlightnewObjs[parentIndex].transform.position = spawnPosition.position + (Vector3.down * 3f);
-        // highlightnewObjs[parentIndex].SetActive(true);
+        highlightnewObjs[parentIndex].transform.position = spawnPosition.position + (Vector3.down * 2.2f);
     }
 
     void SpawnOption(int spawnIndex = 0)
@@ -158,14 +154,14 @@ public class Thumbnail8Controller : MonoBehaviour
         }
 
         var spawnAnswerObj = Instantiate(displayOptionObj, dropSlotObj.transform.parent.GetChild(0));
-        spawnAnswerObj.transform.position = dropSlotObj.transform.position + (Vector3.up * 0.45f);
+        spawnAnswerObj.transform.position = dropSlotObj.transform.position + (Vector3.up * 0.255f);
         spawnAnswerObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = droppedGenderName;
         spawnAnswerObj.transform.SetAsFirstSibling();
         spawnAnswerObj.SetActive(true);
         spawnAnswerObj.transform.parent.gameObject.AddComponent<HangingBoardUI>();
 
         dropSlotObj.SetActive(false);
-        SpawnRope(GetSpawnIndex(dropSlotObj.transform.parent.name), (dropSlotObj.transform.parent.GetChild(0).GetChild(0).position + Vector3.up));
+        SpawnRope(GetSpawnIndex(dropSlotObj.transform.parent.name), (dropSlotObj.transform.parent.GetChild(0).GetChild(0).position  + (Vector3.up * 0.55f)));
     }
 
     void EnableActivityCompleted() => activityCompleted.SetActive(true);

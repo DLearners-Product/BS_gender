@@ -407,30 +407,39 @@ MonoBehaviour:
   optionData:
   - genderName: principal
     gender: 2
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 3f5a157157418ee48affaa4c0abe9e5b, type: 3}
   - genderName: brother
     gender: 0
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 7f4caeef0599e5c4d9f78a3a192ecd6a, type: 3}
   - genderName: son
     gender: 0
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 2ebac1d3f0579e64582ea007583a356f, type: 3}
   - genderName: tigress
     gender: 1
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: b18405101992c91499ab7f61d2f9d42c, type: 3}
   - genderName: sister
     gender: 1
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 927598b2b4ba92e42af369df2d36c53b, type: 3}
   - genderName: child
     gender: 2
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: e13ab0f376a6b854090853f2da64832d, type: 3}
   - genderName: daughter
     gender: 1
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 8fde763ee1bc98d4087b975a1406912f, type: 3}
   - genderName: singer
     gender: 2
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 9ab05e9b49323794b9820485562d6ca6, type: 3}
   - genderName: tiger
     gender: 0
+    genderSprite: {fileID: 0}
     genderNameClip: {fileID: 8300000, guid: 6e274730b5d7dad46b28b0eef4b9593f, type: 3}
   counterObj: {fileID: 6386126977331994076}
   textScoreBoard: {fileID: 6386126977275490931}
