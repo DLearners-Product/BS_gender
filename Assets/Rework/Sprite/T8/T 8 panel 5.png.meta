@@ -29,6 +29,21 @@ TextureImporter:
   - first:
       213: -3260527558303147772
     second: T 8 panel 5_4
+  - first:
+      213: -1058608581714852121
+    second: T 8 panel 5_4
+  - first:
+      213: -4538074406278515946
+    second: T 8 panel 5_5
+  - first:
+      213: 6319622616071464046
+    second: T 8 panel 5_6
+  - first:
+      213: 2148676628143067136
+    second: T 8 panel 5_5
+  - first:
+      213: -7537950724249753628
+    second: T 8 panel 5_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -215,7 +230,7 @@ TextureImporter:
         serializedVersion: 2
         x: 744
         y: 1040
-        width: 597
+        width: 600
         height: 176
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -224,8 +239,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40918f2f57740c2d0800000000000000
-      internalID: -3260527558303147772
+      spriteID: 7e6c4ba8a111f41f0800000000000000
+      internalID: -1058608581714852121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 8 panel 5_5
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 797
+        width: 21
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000d6a55202a1dd10800000000000000
+      internalID: 2148676628143067136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 8 panel 5_6
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 797
+        width: 24
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e7e1ba01c1d36790800000000000000
+      internalID: -7537950724249753628
       vertices: []
       indices: 
       edges: []
