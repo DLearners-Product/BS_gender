@@ -12,11 +12,14 @@ public class Thumbnail7Controller : MonoBehaviour
     public GameObject optionDisplayObj;
     public Sprite[] maleSprites,
                     femaleSprites;
+    public GenderDataStructure[] maleGenders,
+                        femaleGenders;
 
     public GameObject seesawObj;
     public Image maledisplayObj, femaledisplayObj;
     public List<MaleFemalePair> matchAnswers;
     public GameObject gameOverObj;
+    public AudioClip[] audioClips;
 
     Transform[] _maleoptionSpawnPoints,
                 _femaleoptionSpawnPoints;
@@ -61,12 +64,24 @@ public class Thumbnail7Controller : MonoBehaviour
         var spawnedObj = Instantiate(optionDisplayObj, parentObj);
         spawnedObj.transform.position = Vector3.zero;
         spawnedObj.transform.GetChild(0).GetComponent<Image>().sprite = spawnSprites[index];
+        spawnedObj.AddComponent<HoverAudio>().clip = GetAuidoClip(spawnSprites[index].name);
         spawnedObj.GetComponent<Button>().onClick.AddListener(OnOptionClicked);
         Utilities.Instance.ANIM_Move(spawnedObj.transform, spawnPositions[index].position, callBack: () => {
             spawnedObj.GetComponent<FloatingObject>().enabled = true; 
             SpawnOptions(parentObj, spawnSprites, spawnPositions, ++index);
         });
+    }
 
+    AudioClip GetAuidoClip(string searchSTR)
+    {
+        for (int i = 0; i < audioClips.Length; i++)
+        {
+            if(audioClips[i].name.ToLower().Contains(searchSTR.ToLower()))
+            {
+                return audioClips[i];
+            }
+        }
+        return null;
     }
 
     void AssignImageDisplay(Image sourceObj, Image destinationObj)
@@ -160,7 +175,7 @@ public class Thumbnail7Controller : MonoBehaviour
             case SeesawState.PlaySeeSaw:
                 Vector3 rotateDirection;
                 float rotatedDir = Mathf.Round(seesawObj.transform.eulerAngles.z);
-                
+
                 if(rotatedDir == 10)
                 {
                     rotateDirection = new Vector3(0, 0, -10);
@@ -168,7 +183,9 @@ public class Thumbnail7Controller : MonoBehaviour
                     rotateDirection = new Vector3(0, 0, 10);
                 }
 
-                Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection);
+                Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection, callback: () => {
+                    Utilities.Instance.ANIM_RotateObj(seesawObj.transform, Vector3.zero);
+                });
                 break;
         }
     }

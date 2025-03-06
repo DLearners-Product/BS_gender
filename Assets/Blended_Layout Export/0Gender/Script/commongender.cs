@@ -15,6 +15,7 @@ public class commongender : MonoBehaviour
                     endPosition;
     public DotNavigation dotNavigation;
     public TextMeshProUGUI displayText;
+    public AudioClip[] objClip;
 
     [Header("Animation")]
     public Transform boardObj;
@@ -53,9 +54,7 @@ public class commongender : MonoBehaviour
         {
             Showobject(endPosition);
             I_count++;
-            Showobject(displayPosition, () => {
-                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-            });
+            Showobject(displayPosition, ChangePanelText);
             dotNavigation.OnClickNextButton();
         }
         else
@@ -70,9 +69,7 @@ public class commongender : MonoBehaviour
         {
             Showobject(startPosition);
             I_count--;
-            Showobject(displayPosition, () => {
-                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-            });
+            Showobject(displayPosition, ChangePanelText);
             dotNavigation.OnClickBackButton();
         }
     }
@@ -80,6 +77,22 @@ public class commongender : MonoBehaviour
     void AllignToPosition(Transform sourceObject, Transform targetObject, float moveTime)
     {
         Utilities.Instance.ANIM_Move(sourceObject, targetObject.position, moveTime);
+    }
+
+    public void OnDisplayPictureClicked()
+    {
+        PlayAudioClip();
+    }
+
+    void PlayAudioClip()
+    {
+        AudioManager.PlayAudio(objClip[I_count]);
+    }
+
+    void ChangePanelText()
+    {
+        displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        PlayAudioClip();
     }
 
 #region ANIMATION
@@ -96,9 +109,7 @@ public class commongender : MonoBehaviour
         backBtn.gameObject.SetActive(true);
         Utilities.Instance.ANIM_Move(nxtBtn, (nxtBtn.position + (Vector3.right * 1.5f)));
         Utilities.Instance.ANIM_Move(backBtn, (backBtn.position + (Vector3.left * 1.5f)), callBack: () => {
-            Showobject(displayPosition, () => {
-                displayText.text = GA_Objects[I_count].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-            });
+            Showobject(displayPosition, ChangePanelText);
         });
     }
 

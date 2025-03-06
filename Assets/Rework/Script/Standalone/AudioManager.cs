@@ -7,12 +7,13 @@ public class AudioManager : MonoBehaviour
     Queue<AudioClip> queueClips;
     AudioSource audioSource;
 
-    public static void PlayAudio(AudioClip audioClip)
+    public static GameObject PlayAudio(AudioClip audioClip)
     {
         GameObject audioManager = new GameObject();
         audioManager.AddComponent<AudioSource>().clip = audioClip;
         audioManager.AddComponent<AudioManager>();
         audioManager.GetComponent<AudioManager>().PlayAssignedAudio();
+        return audioManager;
     }
 
     public static void PlayOnQueue(IEnumerable<AudioClip> clips)

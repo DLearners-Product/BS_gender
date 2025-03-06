@@ -262,7 +262,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
         seq.Play();
     }
 
-    public void ANIM_PlaySeeSaw(Transform obj, Vector3 rotationDirection)
+    public void ANIM_PlaySeeSaw(Transform obj, Vector3 rotationDirection, TweenCallback callback=null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DORotate(rotationDirection, 0.5f));
@@ -270,6 +270,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
         // seq.Append(obj.DORotate(rotationDirection, 0.5f));
         // seq.Append(obj.DORotate(-rotationDirection, 0.5f));
         seq.SetLoops(3);
+        seq.onComplete += callback;
         seq.Play();
     }
 
