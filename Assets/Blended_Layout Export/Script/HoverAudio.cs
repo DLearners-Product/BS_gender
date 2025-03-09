@@ -13,9 +13,11 @@ public class HoverAudio : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         this.transform.localScale = new Vector3(1.1f, 1.1f, 0);
-        if(audioSource == null)  spawnedAuidoManager = AudioManager.PlayAudio(clip);
+
+        if(audioSource == null)  {spawnedAuidoManager = AudioManager.PlayAudio(clip); return;}
+
         audioSource.clip = clip;
-        audioSource.Play();
+        audioSource?.Play();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -26,6 +28,6 @@ public class HoverAudio : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
             Destroy(spawnedAuidoManager);
             return;
         }
-        audioSource.Stop();
+        audioSource?.Stop();
     }
 }

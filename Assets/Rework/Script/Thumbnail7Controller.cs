@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,38 +11,34 @@ public class Thumbnail7Controller : MonoBehaviour
     public Transform maleOptionSpawnPoint,
                     femaleOptionSpawnPoint;
     public GameObject optionDisplayObj;
-    public Sprite[] maleSprites,
-                    femaleSprites;
     public GenderDataStructure[] maleGenders,
                         femaleGenders;
 
     public GameObject seesawObj;
     public Image maledisplayObj, femaledisplayObj;
     public List<MaleFemalePair> matchAnswers;
-    public GameObject gameOverObj;
     public AudioClip[] audioClips;
+    public TextMeshProUGUI counterTextObj;
+    public GameObject gameOverObj;
 
     Transform[] _maleoptionSpawnPoints,
                 _femaleoptionSpawnPoints;
-    bool _leanOnRight = true,
-            _maleSelected = false,
+    bool _maleSelected = false,
             _femaleSelected = false;
     Transform _selectedMaleObj,
                 _selectedFemaleObj;
-    Transform[] _maleSpawnedOptions,
-                _femaleSpawnedOptions;
     Vector3 _selectedMaleOrgPos,
                 _selectedFemaleOrgPos;
+    int answeredQuesCount = 0;
 
     void Start()
     {
-        _maleSpawnedOptions = new Transform[maleSprites.Length];
-        _femaleSpawnedOptions = new Transform[femaleSprites.Length];
-
+        MoveCounterUp();
+        UpdateCounter();
         GetChildObjs(maleOptionSpawnPoint, ref _maleoptionSpawnPoints);
         GetChildObjs(femaleOptionSpawnPoint, ref _femaleoptionSpawnPoints);
-        SpawnOptions(maleOptionSpawnPoint, maleSprites, _maleoptionSpawnPoints);
-        SpawnOptions(femaleOptionSpawnPoint, femaleSprites, _femaleoptionSpawnPoints);
+        SpawnOptions(maleOptionSpawnPoint, maleGenders, _maleoptionSpawnPoints);
+        SpawnOptions(femaleOptionSpawnPoint, femaleGenders, _femaleoptionSpawnPoints);
     }
 
     void GetChildObjs(Transform parentObj, ref Transform[] traformArr)
@@ -55,38 +52,34 @@ public class Thumbnail7Controller : MonoBehaviour
         }
     }
 
-    void SpawnOptions(Transform parentObj, Sprite[] spawnSprites, Transform[] spawnPositions, int index = 0)
+    void SpawnOptions(Transform parentObj, GenderDataStructure[] spawnedGenders, Transform[] spawnPositions, int index = 0)
     {
-        if(index == spawnSprites.Length) return;
+        if(index == spawnedGenders.Length) { MoveCounterDown(); return; }
 
         int _childCount = parentObj.childCount;
 
         var spawnedObj = Instantiate(optionDisplayObj, parentObj);
         spawnedObj.transform.position = Vector3.zero;
-        spawnedObj.transform.GetChild(0).GetComponent<Image>().sprite = spawnSprites[index];
-        spawnedObj.AddComponent<HoverAudio>().clip = GetAuidoClip(spawnSprites[index].name);
+        spawnedObj.transform.GetChild(0).GetComponent<Image>().sprite = spawnedGenders[index].genderSprite;
+        // spawnedObj.AddComponent<HoverAudio>().clip = GetAuidoClip(spawnedGenders[index].genderCl);
+        spawnedObj.AddComponent<HoverAudio>().clip = spawnedGenders[index].genderNameClip;
         spawnedObj.GetComponent<Button>().onClick.AddListener(OnOptionClicked);
         Utilities.Instance.ANIM_Move(spawnedObj.transform, spawnPositions[index].position, callBack: () => {
             spawnedObj.GetComponent<FloatingObject>().enabled = true; 
-            SpawnOptions(parentObj, spawnSprites, spawnPositions, ++index);
+            SpawnOptions(parentObj, spawnedGenders, spawnPositions, ++index);
         });
     }
 
-    AudioClip GetAuidoClip(string searchSTR)
-    {
-        for (int i = 0; i < audioClips.Length; i++)
-        {
-            if(audioClips[i].name.ToLower().Contains(searchSTR.ToLower()))
-            {
-                return audioClips[i];
-            }
-        }
-        return null;
-    }
+    void MoveCounterUp() => Utilities.Instance.ANIM_Move(counterTextObj.transform.parent, counterTextObj.transform.position + (Vector3.up * 2f), 0f);
+
+    void MoveCounterDown() => Utilities.Instance.ANIM_Move(counterTextObj.transform.parent, counterTextObj.transform.position + (Vector3.down * 1.25f));
+
+    void UpdateCounter() => counterTextObj.text = $"{answeredQuesCount}/{maleGenders.Length}";
 
     void AssignImageDisplay(Image sourceObj, Image destinationObj)
     {
         destinationObj.sprite = sourceObj.sprite;
+        destinationObj.preserveAspect = true;
     }
 
     MaleFemalePair GetPair(string malePairName)
@@ -133,6 +126,8 @@ public class Thumbnail7Controller : MonoBehaviour
         {
             Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: ResetSelectedObjs);
             Utilities.Instance.ANIM_CorrectScaleEffect(femaledisplayObj.transform.parent, callback: MakeChildSmile);
+            answeredQuesCount++;
+            UpdateCounter();
         }else{
             Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: ReleaseSelectedObjs);
             Utilities.Instance.ANIM_WrongEffect(femaledisplayObj.transform.parent.GetComponent<Image>(), callback: MakeChildSad);
@@ -141,12 +136,18 @@ public class Thumbnail7Controller : MonoBehaviour
 
     void ReleaseSelectedObjs()
     {
-        _selectedMaleObj.gameObject.SetActive(true);
-        _selectedFemaleObj.gameObject.SetActive(true);
+        if(_selectedMaleObj != null)
+        {
+            _selectedMaleObj.gameObject.SetActive(true);
+            Utilities.Instance.ANIM_Move(_selectedMaleObj, _selectedMaleOrgPos);
+        }
 
+        if(_selectedFemaleObj != null)
+        {
+            _selectedFemaleObj.gameObject.SetActive(true);
+            Utilities.Instance.ANIM_Move(_selectedFemaleObj, _selectedFemaleOrgPos);
+        }
 
-        Utilities.Instance.ANIM_Move(_selectedMaleObj, _selectedMaleOrgPos);
-        Utilities.Instance.ANIM_Move(_selectedFemaleObj, _selectedFemaleOrgPos);
         ResetSelectedObjs();
     }
 
@@ -184,7 +185,9 @@ public class Thumbnail7Controller : MonoBehaviour
                 }
 
                 Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection, callback: () => {
-                    Utilities.Instance.ANIM_RotateObj(seesawObj.transform, Vector3.zero);
+                    Utilities.Instance.ANIM_RotateObj(seesawObj.transform, Vector3.zero, callback: () => {
+                        if(answeredQuesCount == maleGenders.Length) gameOverObj.SetActive(true);
+                    });
                 });
                 break;
         }
@@ -208,6 +211,8 @@ public class Thumbnail7Controller : MonoBehaviour
 
         if(IsMaleObject(parentName))
         {
+            if(_selectedMaleObj != null)
+                ReleaseSelectedObjs();
             _selectedMaleOrgPos = clickedObj.position;
             _selectedMaleObj = clickedObj;
             _maleSelected = true;
@@ -215,6 +220,8 @@ public class Thumbnail7Controller : MonoBehaviour
 
             PlaySeeSaw(SeesawState.LowerBoy);
         }else{
+            if(_selectedFemaleObj != null)
+                ReleaseSelectedObjs();
             _selectedFemaleOrgPos = clickedObj.position;
             _selectedFemaleObj = clickedObj;
             _femaleSelected = true;

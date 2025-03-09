@@ -23,9 +23,10 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.Play();
     }
 
-    public void ANIM_RotateObj(Transform obj, Vector3 rotateDirection, float duration = 0.5f)
+    public void ANIM_RotateObj(Transform obj, Vector3 rotateDirection, float duration = 0.5f, TweenCallback callback=null)
     {
         Tween _tween = obj.DORotate(rotateDirection, 0.5f);
+        _tween.onComplete += callback;
         _tween.Play();
     }
 
