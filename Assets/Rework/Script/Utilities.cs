@@ -4,16 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using System;
+// using System;
 
 public class Utilities : MonoGenericSingleton<Utilities>
 {
 
-    public void ANIM_ShowNormal(Transform obj, float duration=0.5f) => obj.DOScale(Vector3.one, duration);
+    public void ANIM_ShowNormal(Transform obj, float duration=0.5f, TweenCallback callback=null)
+    {
+        Tween _tween = obj.DOScale(Vector3.one, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
+    }
 
     public void ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f, TweenCallback callback=null)
     {
         Tween _tween = obj.DOScale(Vector3.one * scaleSize, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
+    }
+
+    public void ANIM_RotateObj(Transform obj, Vector3 rotateDirection, float duration = 0.5f, TweenCallback callback=null)
+    {
+        Tween _tween = obj.DORotate(rotateDirection, 0.5f);
         _tween.onComplete += callback;
         _tween.Play();
     }
@@ -108,17 +120,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Play();
     }
 
-    public void ANIM_CorrectScaleEffect(Transform obj) => StartCoroutine(IENUM_Hearbeat(obj));
-
-    IEnumerator IENUM_Hearbeat(Transform obj)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            obj.DOScale(new Vector3(1.25f, 1.25f, 1), 0.5f);
-            yield return new WaitForSeconds(0.25f);
-            obj.DOScale(new Vector3(1, 1, 1), 0.5f);
-            yield return new WaitForSeconds(0.25f);
-        }
+    public void ANIM_CorrectScaleEffect(Transform obj, TweenCallback callback = null) {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOScale(new Vector3(1.25f, 1.25f, 1), 0.25f));
+        seq.Append(obj.DOScale(new Vector3(1, 1, 1), 0.25f));
+        seq.SetLoops(3);
+        seq.onComplete += callback;
+        seq.Play();
     }
 
     public void ANIM_WrongShakeEffect(Transform obj) => StartCoroutine(IENUM_HeadShake(obj));
@@ -173,6 +181,40 @@ public class Utilities : MonoGenericSingleton<Utilities>
         tween.onComplete += callback;
     }
 
+    public void ANIM_ShrinkOnPosition(Transform obj, Vector3 shrinkObj, float actionTime = 0.5f, TweenCallback callback = null)
+    {
+        var tween = obj.DOScale(shrinkObj, actionTime);
+        tween.onComplete += callback;
+    }
+
+    public void ANIM_BounceEffect(Transform obj, float actionTime = 0.5f, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOScaleY(1.5f, 0.25f));
+        seq.Append(obj.DOScaleY(0.75f, 0.125f));
+        seq.Append(obj.DOScaleY(1.25f, 0.15f));
+        seq.Append(obj.DOScaleY(0.85f, 0.125f));
+        seq.Append(obj.DOScaleY(1.15f, 0.15f));
+        seq.Append(obj.DOScaleY(0.95f, 0.125f));
+        seq.Append(obj.DOScaleY(1f, 0.125f));
+        seq.OnComplete(callback);
+        seq.Play();
+    }
+
+    public void ANIM_BoardHangingEffect(Transform obj, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DORotate(new Vector3(-90, 0, 0), Random.Range(0.7f, 1)));
+        seq.Append(obj.DORotate(new Vector3(50, 0, 0), Random.Range(0.7f, 0.8f)));
+        seq.Append(obj.DORotate(new Vector3(-40, 0, 0), 0.55f));
+        seq.Append(obj.DORotate(new Vector3(30, 0, 0), 0.5f));
+        seq.Append(obj.DORotate(new Vector3(-20, 0, 0), 0.4f));
+        seq.Append(obj.DORotate(new Vector3(5, 0, 0), 0.25f));
+        seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.15f));
+        seq.onComplete += callback;
+        seq.SetEase(Ease.InSine).Play();
+    }
+
     public void ANIM_ShakeObj(Transform obj)
     {
         Sequence seq = DOTween.Sequence();
@@ -203,6 +245,34 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Append(obj.DOMove(startPosition, origPosReachTime));
         sequence.AppendCallback(_callbackOnEnd);
         sequence.Play();
+    }
+
+    public void ANIM_ScaleEffect(Transform sacleObj, Vector3 scaleSize, TweenCallback callback = null)
+    {
+        Tween _tween = sacleObj.DOScale(scaleSize, 0.5f);
+        _tween.onComplete += callback;
+    }
+
+    public void ANIM_WrongEffect(Image obj, float duration = 0.5f, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOColor(Color.red, duration));
+        seq.Append(obj.DOColor(Color.white, duration));
+        seq.SetLoops(3);
+        seq.onComplete += callback;
+        seq.Play();
+    }
+
+    public void ANIM_PlaySeeSaw(Transform obj, Vector3 rotationDirection, TweenCallback callback=null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DORotate(rotationDirection, 0.5f));
+        seq.Append(obj.DORotate(-rotationDirection, 0.5f));
+        // seq.Append(obj.DORotate(rotationDirection, 0.5f));
+        // seq.Append(obj.DORotate(-rotationDirection, 0.5f));
+        seq.SetLoops(3);
+        seq.onComplete += callback;
+        seq.Play();
     }
 
     public void ANIM_FlyIn(Transform obj) => obj.DOMoveY(-1.6f, 2f).SetEase(Ease.OutCirc);
