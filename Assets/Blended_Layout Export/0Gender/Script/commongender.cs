@@ -54,7 +54,7 @@ public class commongender : MonoBehaviour
         {
             Showobject(endPosition);
             I_count++;
-            Showobject(displayPosition, ChangePanelText);
+            // Showobject(displayPosition, ChangePanelText);
             dotNavigation.OnClickNextButton();
         }
         else
