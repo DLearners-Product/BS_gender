@@ -44,7 +44,7 @@ public class commongender : MonoBehaviour
     public void Showobject(Transform targetPosition, Action callBackFunc = null)
     {
         Utilities.Instance.ANIM_Move(GA_Objects[I_count].transform, targetPosition.position, callBack: ()=>{
-            callBackFunc();
+            callBackFunc?.Invoke();
         });
     }
 
@@ -54,7 +54,7 @@ public class commongender : MonoBehaviour
         {
             Showobject(endPosition);
             I_count++;
-            // Showobject(displayPosition, ChangePanelText);
+            Showobject(displayPosition, ChangePanelText);
             dotNavigation.OnClickNextButton();
         }
         else
