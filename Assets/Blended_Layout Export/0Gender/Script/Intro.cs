@@ -14,6 +14,8 @@ public class Intro : MonoBehaviour
     public GameObject[] GA_masculineAssets;
     public GameObject[] GA_feminineAssets;
     public GameObject[] GA_commonAssets;
+    public AudioClip slideClip;
+    public AudioClip[] genderDescClips;
     Vector3[] mainMenuObjOrgPos;
     int currentSelectedGender = -1;
 
@@ -25,6 +27,33 @@ public class Intro : MonoBehaviour
         {
             mainMenuObjOrgPos[i] = GA_genderMenuPanels[i].transform.position;
         }
+
+        StartCoroutine(PlayAlideVOClip());
+    }
+
+    IEnumerator PlayAlideVOClip()
+    {
+        GameObject genderComp = null;
+        AudioManager.PlayAudio(slideClip);
+        yield return new WaitForSeconds(slideClip.length);
+
+        genderComp = GA_genderMenuPanels[0];
+        genderComp.GetComponent<AudioSource>().Play();
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.5f);
+        yield return new WaitForSeconds(genderComp.GetComponent<AudioSource>().clip.length);
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.25f);
+
+        genderComp = GA_genderMenuPanels[1];
+        genderComp.GetComponent<AudioSource>().Play();
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.5f);
+        yield return new WaitForSeconds(genderComp.GetComponent<AudioSource>().clip.length);
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.25f);
+
+        genderComp = GA_genderMenuPanels[2];
+        genderComp.GetComponent<AudioSource>().Play();
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.5f);
+        yield return new WaitForSeconds(genderComp.GetComponent<AudioSource>().clip.length);
+        Utilities.Instance.ANIM_ScaleEffect(genderComp.transform, Vector3.one * 1.25f);
     }
 
     public void BUT_select(int index)
@@ -59,21 +88,24 @@ public class Intro : MonoBehaviour
                 GA_genderMenuPanels[2].SetActive(false);
                 GA_genderMenuPanels[0].transform.SetAsLastSibling();
                 currentSelectedGender = 0;
-                MoveAnndScaleDownTo(GA_masculineAssets, GA_genderMenuPanels[1].transform);
+                AudioManager.PlayAudio(GA_genderMenuPanels[0].GetComponent<AudioSource>().clip);
+                MoveAnndScaleDownTo(GA_masculineAssets, GA_genderMenuPanels[1].transform, () => AudioManager.PlayAudio(genderDescClips[0]));
                 break;
             case 2:
                 GA_genderMenuPanels[0].SetActive(false);
                 GA_genderMenuPanels[2].SetActive(false);
                 GA_genderMenuPanels[1].transform.SetAsLastSibling();
                 currentSelectedGender = 1;
-                MoveAnndScaleDownTo(GA_feminineAssets, GA_genderMenuPanels[1].transform);
+                AudioManager.PlayAudio(GA_genderMenuPanels[1].GetComponent<AudioSource>().clip);
+                MoveAnndScaleDownTo(GA_feminineAssets, GA_genderMenuPanels[1].transform, () => AudioManager.PlayAudio(genderDescClips[1]));
                 break;
             case 3:
                 GA_genderMenuPanels[0].SetActive(false);
                 GA_genderMenuPanels[1].SetActive(false);
                 GA_genderMenuPanels[2].transform.SetAsLastSibling();
                 currentSelectedGender = 2;
-                MoveAnndScaleDownTo(GA_commonAssets, GA_genderMenuPanels[1].transform);
+                AudioManager.PlayAudio(GA_genderMenuPanels[2].GetComponent<AudioSource>().clip);
+                MoveAnndScaleDownTo(GA_commonAssets, GA_genderMenuPanels[1].transform, () => AudioManager.PlayAudio(genderDescClips[2]));
                 break;
             default:
                 break;
@@ -100,7 +132,7 @@ public class Intro : MonoBehaviour
 
 #region ANIMATION_EFFECTS
 
-    void MoveAnndScaleDownTo(GameObject[] genderChildObj, Transform endPosObj)
+    void MoveAnndScaleDownTo(GameObject[] genderChildObj, Transform endPosObj, Action callback = null)
     {
         ResetFlotObjPos(genderChildObj, 0, 0f, 0f);
 
@@ -113,7 +145,7 @@ public class Intro : MonoBehaviour
         Utilities.Instance.ANIM_MoveWithScaleUp(sourceObj, endPosObj.position, () => {
             G_mainmenu.SetActive(false);
             GA_genderObjs[currentSelectedGender].SetActive(true);
-            ReleaseChildObj(genderChildObj, 0);
+            ReleaseChildObj(genderChildObj, 0, callback);
         });
     }
 
@@ -135,13 +167,13 @@ public class Intro : MonoBehaviour
         });
     }
 
-    void ReleaseChildObj(GameObject[] childObjects, int childIndex)
+    void ReleaseChildObj(GameObject[] childObjects, int childIndex, Action callback = null)
     {
-        if(childIndex == childObjects.Length) { G_back.SetActive(true); return; }
+        if(childIndex == childObjects.Length) { G_back.SetActive(true); callback?.Invoke(); return; }
 
         Utilities.Instance.ANIM_MoveWithScaleUp(childObjects[childIndex].transform, spawnPoints[childIndex].position, () => {
             childObjects[childIndex].GetComponent<FloatingObject>().enabled = true;
-            ReleaseChildObj(childObjects, ++childIndex);
+            ReleaseChildObj(childObjects, ++childIndex, callback);
         });
     }
 

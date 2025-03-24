@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f71f8caf192f387489338b774db8fb96, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3d597f5c849eaa4db3e8f362271c5cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -246,22 +246,22 @@ PrefabInstance:
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.059047118
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9982552
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
@@ -281,27 +281,27 @@ PrefabInstance:
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 6.7700005
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 47.2
+      value: 9.6
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 109.1
+      value: 74.3
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 40.853622
+      value: 32.41533
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40.853622
+      value: 32.41533
       objectReference: {fileID: 0}
     - target: {fileID: 7651870267755258901, guid: d1d2882c08aa7bb40b3c1e67b99621e3,
         type: 3}

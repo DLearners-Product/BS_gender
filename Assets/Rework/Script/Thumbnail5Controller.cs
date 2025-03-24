@@ -21,16 +21,20 @@ public class Thumbnail5Controller : MonoBehaviour
     [SerializeField] TextMeshProUGUI displayText;
     [SerializeField] string[] displayPanels;
     [SerializeField] AudioClip[] genderPanelAudioClip;
+    [SerializeField] Transform textDisplayPanel;
     [SerializeField] GameObject activityCompleted;
     List<string> birds = new List<string>(){"drake", "duck"};
     int contentIndex = 0;
     List<EnvironmentData> currentEnv;
     List<CattleData> currentCattleData;
+    Transform displayPanelOrgPos;
 
     void Start()
     {
         currentCattleData = maleCattleData;
         PlayGenderTypeAudio(genderPanelAudioClip[0]);
+        displayPanelOrgPos = textDisplayPanel.transform;
+        LowerDisplayPanel(0f);
     }
 
     void PlayGenderTypeAudio(AudioClip playClip)
@@ -61,10 +65,16 @@ public class Thumbnail5Controller : MonoBehaviour
         ShowEnvironment(currentEnv);
     }
 
-    public void OnBackButtonClick()
+    public void OnNextButtonClick()
     {
+        LowerDisplayPanel(0.5f);
         bakcBTN.interactable = false;
         RemoveCurrentEnv(currentEnv, currentEnv.Count - 1);
+    }
+
+    public void OnSpeakerBTNClick()
+    {
+        AudioManager.PlayAudio(currentCattleData[contentIndex].cattleName);
     }
 
     void ChangeAnimal()
@@ -109,10 +119,25 @@ public class Thumbnail5Controller : MonoBehaviour
     void ShowAnimal()
     {
         if(birds.Contains(currentCattleData[contentIndex].cattleObject.name.ToLower()))
-            currentCattleData[contentIndex].MoveTo(bridDisplayPosition, () => {bakcBTN.interactable = true;});
+            currentCattleData[contentIndex].MoveTo(bridDisplayPosition, () => {
+                bakcBTN.interactable = true;
+
+                textDisplayPanel.GetComponentInChildren<TextMeshProUGUI>().text = currentCattleData[contentIndex].cattleObject.name;
+
+                RiseDisplayPanel(0.5f);
+            });
         else
-            currentCattleData[contentIndex].MoveTo(animalDisplayPosition, () => {bakcBTN.interactable = true;});
+            currentCattleData[contentIndex].MoveTo(animalDisplayPosition, () => {
+                bakcBTN.interactable = true;
+
+                textDisplayPanel.GetComponentInChildren<TextMeshProUGUI>().text = currentCattleData[contentIndex].cattleObject.name;
+
+                RiseDisplayPanel(0.5f);
+            });
     }
+
+    void LowerDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, displayPanelOrgPos.position + Vector3.down * 2f, moveTime);
+    void RiseDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, displayPanelOrgPos.position + Vector3.up * 2f, moveTime);
 
     void RemoveAnimal()
     {

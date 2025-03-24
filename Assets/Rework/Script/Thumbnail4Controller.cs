@@ -12,7 +12,7 @@ public class Thumbnail4Controller : MonoBehaviour
     public GameObject panel1, 
                         panel2;
     public AudioClip[] contentClips;
-    public AnimationClip panel1ChangeAnimClip, pane2ChangeAnimClip;
+    public AnimationClip panel1ChangeAnimClip, panel2ChangeAnimClip;
     public Button backBTN;
     public GameObject activityCompleted;
     int currentContentIndex = 0;
@@ -32,8 +32,8 @@ public class Thumbnail4Controller : MonoBehaviour
         spawnedPanel1.GetComponent<Button>().onClick.AddListener(OnContentImageClicked);
         spawnedPanel2.GetComponent<Button>().onClick.AddListener(OnContentImageClicked);
 
-        panel1.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = panel1Contents[currentContentIndex].name;
-        panel2.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = panel2Contents[currentContentIndex].name;
+        panel1.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = panel1Contents[currentContentIndex].name.ToLower();
+        panel2.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = panel2Contents[currentContentIndex].name.ToLower();
 
         panel1.GetComponent<Animator>().Play("panel1_in");
         panel2.GetComponent<Animator>().Play("panel2_in");
