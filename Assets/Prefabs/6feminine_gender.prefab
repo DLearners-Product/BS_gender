@@ -1824,7 +1824,7 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: 38f021c3433c5b246a7a7e0c75358ea9, type: 3}
   - genderName: Stallion
     gender: 0
-    genderSprite: {fileID: 21300000, guid: d7da510559909024aae8e09329056c34, type: 3}
+    genderSprite: {fileID: 21300000, guid: 97639d1dbfeaf5344bf1c4ba7713877e, type: 3}
     genderNameClip: {fileID: 8300000, guid: 743f6b775b22094479799f8f1917ae81, type: 3}
   - genderName: Peacock
     gender: 0
@@ -1836,7 +1836,7 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: 648262034883a8941915f602e33bdb6b, type: 3}
   - genderName: King
     gender: 0
-    genderSprite: {fileID: 21300000, guid: f71f8caf192f387489338b774db8fb96, type: 3}
+    genderSprite: {fileID: 21300000, guid: b3d597f5c849eaa4db3e8f362271c5cb, type: 3}
     genderNameClip: {fileID: 8300000, guid: 58448eb17695b3b408536c06be3416f6, type: 3}
   - genderName: Man
     gender: 0
@@ -1844,7 +1844,7 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: 8872df9e52430b94d85c6aaf45d4eae0, type: 3}
   - genderName: Grandfather
     gender: 0
-    genderSprite: {fileID: 21300000, guid: 213083f612a32c942a0f803c700b4a65, type: 3}
+    genderSprite: {fileID: 21300000, guid: 87594252c00049b469948d900e029912, type: 3}
     genderNameClip: {fileID: 8300000, guid: c613a4237a77cf746802d63d7833f881, type: 3}
   femaleGenders:
   - genderName: Duck
@@ -1861,15 +1861,15 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: b614eba01e8f7904b89a22dfd8d268d8, type: 3}
   - genderName: Mare
     gender: 1
-    genderSprite: {fileID: 21300000, guid: 97639d1dbfeaf5344bf1c4ba7713877e, type: 3}
+    genderSprite: {fileID: 21300000, guid: d7da510559909024aae8e09329056c34, type: 3}
     genderNameClip: {fileID: 8300000, guid: 67cf7982210e6de40918750adc9c4a29, type: 3}
   - genderName: Grandmother
     gender: 1
-    genderSprite: {fileID: 21300000, guid: f5ff364715445f548a07270493f791b4, type: 3}
+    genderSprite: {fileID: 21300000, guid: 9b4cf24583194034da8c8c0a4a8931a9, type: 3}
     genderNameClip: {fileID: 8300000, guid: cba684a11cbd92c49bc0beae417ff63b, type: 3}
   - genderName: Queen
     gender: 1
-    genderSprite: {fileID: 21300000, guid: 8eace5f01c0414f4da9001feec158fc6, type: 3}
+    genderSprite: {fileID: 21300000, guid: 0e80bd00b5a01d4428ce525d9c630034, type: 3}
     genderNameClip: {fileID: 8300000, guid: dff097832eb58854fa879e3f854834f5, type: 3}
   - genderName: Peahen
     gender: 1

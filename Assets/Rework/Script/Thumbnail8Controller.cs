@@ -42,6 +42,12 @@ public class Thumbnail8Controller : MonoBehaviour
         ImageDropSlot.onDropInSlot += OnOptionObjectDroped;
     }
 
+    private void OnDisable() {
+        ImageDragandDrop.onDrag -= OnOptionDrag;
+        ImageDragandDrop.onDragEnd -= OnOptionObjDragEnd;
+        ImageDropSlot.onDropInSlot -= OnOptionObjectDroped;
+    }
+
 #region ANIMATION_METHODS
 
     void OptionSpawnObjBounceEffect()

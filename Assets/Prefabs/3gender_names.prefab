@@ -1097,7 +1097,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6d43b7c4e9a1a9f4bbe0270db2d2478b, type: 3}
   panel1ChangeAnimClip: {fileID: 7400000, guid: 7b5199eebc72846408adc21bfb3c73d1,
     type: 2}
-  pane2ChangeAnimClip: {fileID: 7400000, guid: 02da27eace2825d478730c5aab4ef08e, type: 2}
+  panel2ChangeAnimClip: {fileID: 7400000, guid: 02da27eace2825d478730c5aab4ef08e,
+    type: 2}
   backBTN: {fileID: 6865626137124350006}
   activityCompleted: {fileID: 573658883668677724}
 --- !u!1 &6865626138770922120
