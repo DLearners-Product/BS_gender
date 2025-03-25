@@ -2730,7 +2730,7 @@ MonoBehaviour:
     teacherInstruction: 
     activityInstruction: 
     activityType: 0
-    HAS_VIDEO: 0
+    HAS_VIDEO: 1
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
@@ -2847,7 +2847,7 @@ MonoBehaviour:
     teacherInstruction: 
     activityInstruction: 
     activityType: 0
-    HAS_VIDEO: 0
+    HAS_VIDEO: 1
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
@@ -5658,7 +5658,7 @@ PrefabInstance:
     - target: {fileID: 3725847341252804953, guid: 4565e84c14b4e0144a17d0fe94d59f70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3725847341252804953, guid: 4565e84c14b4e0144a17d0fe94d59f70,
         type: 3}
