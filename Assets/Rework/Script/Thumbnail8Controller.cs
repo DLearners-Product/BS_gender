@@ -178,7 +178,7 @@ public class Thumbnail8Controller : MonoBehaviour
         UpdateScoreBoard();
         if (answeredCount == optionData.Length)
         {
-            activityCompleted.SetActive(true);
+            EnableActivityCompleted();
             return;
         }
 
