@@ -30,6 +30,16 @@ public class Thumbnail7Controller : MonoBehaviour
     Vector3 _selectedMaleOrgPos,
                 _selectedFemaleOrgPos;
     int answeredQuesCount = 0;
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
 
     void Start()
     {
@@ -39,6 +49,13 @@ public class Thumbnail7Controller : MonoBehaviour
         GetChildObjs(femaleOptionSpawnPoint, ref _femaleoptionSpawnPoints);
         SpawnOptions(maleOptionSpawnPoint, maleGenders, _maleoptionSpawnPoints);
         SpawnOptions(femaleOptionSpawnPoint, femaleGenders, _femaleoptionSpawnPoints);
+#region DataSetter
+        Main_Blended.OBJ_main_blended.levelno = 6;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        // GetAdditionalData();
+#endregion
     }
 
     void GetChildObjs(Transform parentObj, ref Transform[] traformArr)
@@ -126,9 +143,14 @@ public class Thumbnail7Controller : MonoBehaviour
         {
             Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: ResetSelectedObjs);
             Utilities.Instance.ANIM_CorrectScaleEffect(femaledisplayObj.transform.parent, callback: MakeChildSmile);
+
+            ScoreManager.instance.RightAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
+
             answeredQuesCount++;
             UpdateCounter();
         }else{
+            ScoreManager.instance.WrongAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
+
             Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: ReleaseSelectedObjs);
             Utilities.Instance.ANIM_WrongEffect(femaledisplayObj.transform.parent.GetComponent<Image>(), callback: MakeChildSad);
         }
@@ -186,7 +208,10 @@ public class Thumbnail7Controller : MonoBehaviour
 
                 Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection, callback: () => {
                     Utilities.Instance.ANIM_RotateObj(seesawObj.transform, Vector3.zero, callback: () => {
-                        if(answeredQuesCount == maleGenders.Length) gameOverObj.SetActive(true);
+                        if(answeredQuesCount == maleGenders.Length) {
+                            BlendedOperations.instance.NotifyActivityCompleted();
+                            gameOverObj.SetActive(true);
+                        }
                     });
                 });
                 break;
@@ -237,6 +262,46 @@ public class Thumbnail7Controller : MonoBehaviour
             Invoke(nameof(EvaluateAnswer), 0.5f);
             // EvaluateAnswer();
         });
+    }
+#endregion
+
+#region QA
+
+    int GetQuestionID(string selectedQues)
+    {
+        for (int i = 0; i < questions.Length; i++)
+        {
+            if (questions[i].text.Contains(selectedQues))
+            {
+                return questions[i].id;
+            }
+        }
+        return -1;
+    }
+
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text.Contains(selectedOption))
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
     }
 #endregion
 
