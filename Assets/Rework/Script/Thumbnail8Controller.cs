@@ -45,7 +45,7 @@ public class Thumbnail8Controller : MonoBehaviour
         ResetQuestionPanelPosition();
         UpdateScoreBoard();
 #region DataSetter
-        Main_Blended.OBJ_main_blended.levelno = 6;
+        Main_Blended.OBJ_main_blended.levelno = 7;
         QAManager.instance.UpdateActivityQuestion();
         qIndex = 0;
         GetData(qIndex);
@@ -159,17 +159,17 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void OnOptionObjectDroped(GameObject dragObj, GameObject dropSlotObj)
     {
-        string droppedGenderName = dragObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        string droppedGenderName = dragObj.transform.GetComponentInChildren<TextMeshProUGUI>().text;
         var droppedGender = GetGenderData(droppedGenderName);
         var dropSlotIndex = GetSpawnIndex(dropSlotObj.transform.parent.name);
 
         if(!EvaluateAnswer(droppedGender, dropSlotIndex)) { 
-            // ScoreManager.instance.WrongAnswer(answeredCount, questionID: GetQuestionID(questions[(int) droppedGender.gender].text), answerID: GetOptionID());
+            ScoreManager.instance.WrongAnswer(answeredCount, questionID: GetQuestionID(questions[dropSlotIndex].text), answerID: GetOptionID(droppedGenderName));
             AudioManager.PlayAudio(wrongSFX);
             return;
         }
 
-        ScoreManager.instance.RightAnswer(answeredCount, questionID: GetQuestionID(questions[(int) droppedGender.gender].text));
+        ScoreManager.instance.RightAnswer(answeredCount, questionID: GetQuestionID(questions[(int) droppedGender.gender].text), answerID: GetOptionID(droppedGenderName));
 
         Destroy(dragObj);
         AudioManager.PlayAudio(droppedGender.genderNameClip);
@@ -178,6 +178,7 @@ public class Thumbnail8Controller : MonoBehaviour
         UpdateScoreBoard();
         if (answeredCount == optionData.Length)
         {
+            BlendedOperations.instance.NotifyActivityCompleted();
             EnableActivityCompleted();
             return;
         }
