@@ -30,6 +30,7 @@ public class Thumbnail7Controller : MonoBehaviour
     Vector3 _selectedMaleOrgPos,
                 _selectedFemaleOrgPos;
     int answeredQuesCount = 0;
+    bool B_Canclick;
 #region QA
     private int qIndex;
     public GameObject questionGO;
@@ -43,6 +44,7 @@ public class Thumbnail7Controller : MonoBehaviour
 
     void Start()
     {
+        DisableClicking();
         MoveCounterUp();
         UpdateCounter();
         GetChildObjs(maleOptionSpawnPoint, ref _maleoptionSpawnPoints);
@@ -71,7 +73,7 @@ public class Thumbnail7Controller : MonoBehaviour
 
     void SpawnOptions(Transform parentObj, GenderDataStructure[] spawnedGenders, Transform[] spawnPositions, int index = 0)
     {
-        if(index == spawnedGenders.Length) { MoveCounterDown(); return; }
+        if(index == spawnedGenders.Length) { EnableClicking(); MoveCounterDown(); return; }
 
         int _childCount = parentObj.childCount;
 
@@ -92,6 +94,10 @@ public class Thumbnail7Controller : MonoBehaviour
     void MoveCounterDown() => Utilities.Instance.ANIM_Move(counterTextObj.transform.parent, counterTextObj.transform.position + (Vector3.down * 1.25f));
 
     void UpdateCounter() => counterTextObj.text = $"{answeredQuesCount}/{maleGenders.Length}";
+
+    void EnableClicking() => B_Canclick = true;
+
+    void DisableClicking() => B_Canclick = false;
 
     void AssignImageDisplay(Image sourceObj, Image destinationObj)
     {
@@ -141,7 +147,7 @@ public class Thumbnail7Controller : MonoBehaviour
 
         if(feMalePairName.Contains(pairObj.femalePairAnimal))
         {
-            Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: ResetSelectedObjs);
+            Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: () => { ResetSelectedObjs(); EnableClicking(); });
             Utilities.Instance.ANIM_CorrectScaleEffect(femaledisplayObj.transform.parent, callback: MakeChildSmile);
 
             ScoreManager.instance.RightAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
@@ -151,7 +157,7 @@ public class Thumbnail7Controller : MonoBehaviour
         }else{
             ScoreManager.instance.WrongAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
 
-            Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: ReleaseSelectedObjs);
+            Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: () => { ReleaseSelectedObjs(); EnableClicking(); });
             Utilities.Instance.ANIM_WrongEffect(femaledisplayObj.transform.parent.GetComponent<Image>(), callback: MakeChildSad);
         }
     }
@@ -228,6 +234,8 @@ public class Thumbnail7Controller : MonoBehaviour
 #region OnButtonClickListener
     public void OnOptionClicked()
     {
+        if(!B_Canclick) return;
+
         var clickedObj = EventSystem.current.currentSelectedGameObject.transform;
         clickedObj.GetComponent<FloatingObject>().enabled = false;
         Image destinationObj = null;
@@ -254,6 +262,8 @@ public class Thumbnail7Controller : MonoBehaviour
 
             PlaySeeSaw(SeesawState.LowerGirl);
         }
+
+        if(_maleSelected && _femaleSelected) DisableClicking();
 
         Utilities.Instance.ANIM_Move(clickedObj, destinationObj.transform.position, callBack: () => {
             AssignImageDisplay(clickedObj.transform.GetChild(0).GetComponent<Image>(), destinationObj);

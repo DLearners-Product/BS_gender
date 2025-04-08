@@ -9,7 +9,10 @@ public class AudioManager : MonoBehaviour
 
     public static GameObject PlayAudio(AudioClip audioClip)
     {
+        var gamePanel = GameObject.Find("Game_Panel");
         GameObject audioManager = new GameObject();
+        if(gamePanel != null) audioManager.transform.SetParent(gamePanel.transform.GetChild(0));
+
         audioManager.AddComponent<AudioSource>().clip = audioClip;
         audioManager.AddComponent<AudioManager>();
         audioManager.GetComponent<AudioManager>().PlayAssignedAudio();

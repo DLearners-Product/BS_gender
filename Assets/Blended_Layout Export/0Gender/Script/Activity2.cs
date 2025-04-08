@@ -62,6 +62,7 @@ public class Activity2 : MonoBehaviour
 
         questionDisplayIMG.sprite = genderData[I_Qcount].genderSprite;
         questionText.text = genderData[I_Qcount].genderName;
+        questionText.transform.parent.GetComponent<HoverAudio>().clip = genderData[I_Qcount].genderNameClip;
 
         Utilities.Instance.ANIM_Move(questionText.transform.parent, questionTextPanelPosition, callBack: () => {
             AudioManager.PlayAudio(genderData[I_Qcount].genderNameClip);
