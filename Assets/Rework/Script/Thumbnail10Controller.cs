@@ -18,17 +18,35 @@ public class Thumbnail10Controller : MonoBehaviour
     public GameObject activityCompleted;
     public AudioClip wrongClip;
     int currentIndex = 0;
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    // Component[] questions;
+    Component question;
+    Component[] options;
+    Component[] answers;
+#endregion
 
     void Start()
     {
         ResetQuestionPanel();
         ShowQuestionPanel();
+#region DataSetter
+        Main_Blended.OBJ_main_blended.levelno = 9;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(currentIndex);
+        // GetAdditionalData();
+#endregion
     }
 
     void ResetQuestionPanel(float resetTime = 0f, Action callback = null)
     {
         Utilities.Instance.ANIM_ShrinkOnPosition(questionPanel, new Vector3(1, 0, 1), resetTime, callback: () => {
-            if(callback != null) callback();
+            callback?.Invoke();
         });
         Utilities.Instance.ANIM_RotateObj(panel1, new Vector3(90, 0, 0), resetTime);
         Utilities.Instance.ANIM_RotateObj(panel2, new Vector3(90, 0, 0), resetTime);
@@ -64,9 +82,15 @@ public class Thumbnail10Controller : MonoBehaviour
     void ChangeQuestion()
     {
         currentIndex++;
-        if(currentIndex >= questionData.Length) activityCompleted.SetActive(true);
+        if(currentIndex >= questionData.Length) { ActivityCompleted(); return; } 
+        GetData(currentIndex);
         ResetQuestionPanel(0.5f, ShowQuestionPanel);
+    }
 
+    void ActivityCompleted()
+    {
+        BlendedOperations.instance.NotifyActivityCompleted();
+        activityCompleted.SetActive(true);
     }
 
 #region LISTENERS
@@ -74,16 +98,47 @@ public class Thumbnail10Controller : MonoBehaviour
     public void OnOptionClick()
     {
         var selectedObj = EventSystem.current.currentSelectedGameObject;
-        string selectedOptionSTR = selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        string selectedOptionSTR = selectedObj.transform.GetComponentInChildren<TextMeshProUGUI>().text;
         if(IsRightAnswer(selectedOptionSTR))
         {
+            ScoreManager.instance.RightAnswer(currentIndex, questionID: question.id, answerID: GetOptionID(selectedOptionSTR));
             DisplayRightAnswer(selectedOptionSTR);
             Invoke(nameof(ChangeQuestion), 1.5f);
         }else{
+            ScoreManager.instance.WrongAnswer(currentIndex, questionID: question.id, answerID: GetOptionID(selectedOptionSTR));
             AudioManager.PlayAudio(wrongClip);
         }
     }
 
+#endregion
+
+#region QA
+
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            Debug.Log($"Option : {options[i].text}");
+            if (options[i].text.Contains(selectedOption))
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        // questions = QAManager.instance.GetQuestionAt(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
 #endregion
 }
 

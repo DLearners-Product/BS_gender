@@ -23,6 +23,16 @@ public class Thumbnail8Controller : MonoBehaviour
     public AudioClip wrongSFX;
     Transform[] _quesitonPanels;
     int answeredCount = 0;
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
 
     void Start()
     {
@@ -34,6 +44,13 @@ public class Thumbnail8Controller : MonoBehaviour
         OptionSpawnObjBounceEffect();
         ResetQuestionPanelPosition();
         UpdateScoreBoard();
+#region DataSetter
+        Main_Blended.OBJ_main_blended.levelno = 7;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        // GetAdditionalData();
+#endregion
     }
 
     private void OnEnable() {
@@ -142,11 +159,17 @@ public class Thumbnail8Controller : MonoBehaviour
 
     void OnOptionObjectDroped(GameObject dragObj, GameObject dropSlotObj)
     {
-        string droppedGenderName = dragObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        string droppedGenderName = dragObj.transform.GetComponentInChildren<TextMeshProUGUI>().text;
         var droppedGender = GetGenderData(droppedGenderName);
         var dropSlotIndex = GetSpawnIndex(dropSlotObj.transform.parent.name);
 
-        if(!EvaluateAnswer(droppedGender, dropSlotIndex)) { AudioManager.PlayAudio(wrongSFX); return; }
+        if(!EvaluateAnswer(droppedGender, dropSlotIndex)) { 
+            ScoreManager.instance.WrongAnswer(answeredCount, questionID: GetQuestionID(questions[dropSlotIndex].text), answerID: GetOptionID(droppedGenderName));
+            AudioManager.PlayAudio(wrongSFX);
+            return;
+        }
+
+        ScoreManager.instance.RightAnswer(answeredCount, questionID: GetQuestionID(questions[(int) droppedGender.gender].text), answerID: GetOptionID(droppedGenderName));
 
         Destroy(dragObj);
         AudioManager.PlayAudio(droppedGender.genderNameClip);
@@ -155,7 +178,8 @@ public class Thumbnail8Controller : MonoBehaviour
         UpdateScoreBoard();
         if (answeredCount == optionData.Length)
         {
-            activityCompleted.SetActive(true);
+            BlendedOperations.instance.NotifyActivityCompleted();
+            EnableActivityCompleted();
             return;
         }
 
@@ -217,6 +241,45 @@ public class Thumbnail8Controller : MonoBehaviour
         highlightnewObjs[enablerIndex].SetActive(true);
     }
 
+#region QA
+
+    int GetQuestionID(string selectedQues)
+    {
+        for (int i = 0; i < questions.Length; i++)
+        {
+            if (questions[i].text.Contains(selectedQues))
+            {
+                return questions[i].id;
+            }
+        }
+        return -1;
+    }
+
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text.Contains(selectedOption))
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
+#endregion
 }
 
 [System.Serializable]
@@ -233,4 +296,16 @@ public enum Genders
     Masculine,
     Feminine,
     Common
+}
+
+public static class ExtensionMethods
+{
+    public static string GetGenderName(this IList<GenderDataStructure> genderArr, string spriteName)
+    {
+        for (int i = 0; i < genderArr.Count; i++)
+        {
+            if(genderArr[i].genderSprite.name.Equals(spriteName)) return genderArr[i].genderName;
+        }
+        return "";
+    }
 }

@@ -1824,7 +1824,7 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: 38f021c3433c5b246a7a7e0c75358ea9, type: 3}
   - genderName: Stallion
     gender: 0
-    genderSprite: {fileID: 21300000, guid: 97639d1dbfeaf5344bf1c4ba7713877e, type: 3}
+    genderSprite: {fileID: 21300000, guid: d7da510559909024aae8e09329056c34, type: 3}
     genderNameClip: {fileID: 8300000, guid: 743f6b775b22094479799f8f1917ae81, type: 3}
   - genderName: Peacock
     gender: 0
@@ -1861,7 +1861,7 @@ MonoBehaviour:
     genderNameClip: {fileID: 8300000, guid: b614eba01e8f7904b89a22dfd8d268d8, type: 3}
   - genderName: Mare
     gender: 1
-    genderSprite: {fileID: 21300000, guid: d7da510559909024aae8e09329056c34, type: 3}
+    genderSprite: {fileID: 21300000, guid: 97639d1dbfeaf5344bf1c4ba7713877e, type: 3}
     genderNameClip: {fileID: 8300000, guid: 67cf7982210e6de40918750adc9c4a29, type: 3}
   - genderName: Grandmother
     gender: 1

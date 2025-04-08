@@ -30,15 +30,34 @@ public class Thumbnail7Controller : MonoBehaviour
     Vector3 _selectedMaleOrgPos,
                 _selectedFemaleOrgPos;
     int answeredQuesCount = 0;
+    bool B_Canclick;
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
 
     void Start()
     {
+        DisableClicking();
         MoveCounterUp();
         UpdateCounter();
         GetChildObjs(maleOptionSpawnPoint, ref _maleoptionSpawnPoints);
         GetChildObjs(femaleOptionSpawnPoint, ref _femaleoptionSpawnPoints);
         SpawnOptions(maleOptionSpawnPoint, maleGenders, _maleoptionSpawnPoints);
         SpawnOptions(femaleOptionSpawnPoint, femaleGenders, _femaleoptionSpawnPoints);
+#region DataSetter
+        Main_Blended.OBJ_main_blended.levelno = 6;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        // GetAdditionalData();
+#endregion
     }
 
     void GetChildObjs(Transform parentObj, ref Transform[] traformArr)
@@ -54,7 +73,7 @@ public class Thumbnail7Controller : MonoBehaviour
 
     void SpawnOptions(Transform parentObj, GenderDataStructure[] spawnedGenders, Transform[] spawnPositions, int index = 0)
     {
-        if(index == spawnedGenders.Length) { MoveCounterDown(); return; }
+        if(index == spawnedGenders.Length) { EnableClicking(); MoveCounterDown(); return; }
 
         int _childCount = parentObj.childCount;
 
@@ -75,6 +94,10 @@ public class Thumbnail7Controller : MonoBehaviour
     void MoveCounterDown() => Utilities.Instance.ANIM_Move(counterTextObj.transform.parent, counterTextObj.transform.position + (Vector3.down * 1.25f));
 
     void UpdateCounter() => counterTextObj.text = $"{answeredQuesCount}/{maleGenders.Length}";
+
+    void EnableClicking() => B_Canclick = true;
+
+    void DisableClicking() => B_Canclick = false;
 
     void AssignImageDisplay(Image sourceObj, Image destinationObj)
     {
@@ -124,12 +147,17 @@ public class Thumbnail7Controller : MonoBehaviour
 
         if(feMalePairName.Contains(pairObj.femalePairAnimal))
         {
-            Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: ResetSelectedObjs);
+            Utilities.Instance.ANIM_CorrectScaleEffect(maledisplayObj.transform.parent, callback: () => { ResetSelectedObjs(); EnableClicking(); });
             Utilities.Instance.ANIM_CorrectScaleEffect(femaledisplayObj.transform.parent, callback: MakeChildSmile);
+
+            ScoreManager.instance.RightAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
+
             answeredQuesCount++;
             UpdateCounter();
         }else{
-            Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: ReleaseSelectedObjs);
+            ScoreManager.instance.WrongAnswer(answeredQuesCount, questionID: GetQuestionID(maleGenders.GetGenderName(malePairName)), answerID: GetOptionID(femaleGenders.GetGenderName(feMalePairName)));
+
+            Utilities.Instance.ANIM_WrongEffect(maledisplayObj.transform.parent.GetComponent<Image>(), callback: () => { ReleaseSelectedObjs(); EnableClicking(); });
             Utilities.Instance.ANIM_WrongEffect(femaledisplayObj.transform.parent.GetComponent<Image>(), callback: MakeChildSad);
         }
     }
@@ -186,7 +214,10 @@ public class Thumbnail7Controller : MonoBehaviour
 
                 Utilities.Instance.ANIM_PlaySeeSaw(seesawObj.transform, rotateDirection, callback: () => {
                     Utilities.Instance.ANIM_RotateObj(seesawObj.transform, Vector3.zero, callback: () => {
-                        if(answeredQuesCount == maleGenders.Length) gameOverObj.SetActive(true);
+                        if(answeredQuesCount == maleGenders.Length) {
+                            BlendedOperations.instance.NotifyActivityCompleted();
+                            gameOverObj.SetActive(true);
+                        }
                     });
                 });
                 break;
@@ -203,6 +234,8 @@ public class Thumbnail7Controller : MonoBehaviour
 #region OnButtonClickListener
     public void OnOptionClicked()
     {
+        if(!B_Canclick) return;
+
         var clickedObj = EventSystem.current.currentSelectedGameObject.transform;
         clickedObj.GetComponent<FloatingObject>().enabled = false;
         Image destinationObj = null;
@@ -230,6 +263,8 @@ public class Thumbnail7Controller : MonoBehaviour
             PlaySeeSaw(SeesawState.LowerGirl);
         }
 
+        if(_maleSelected && _femaleSelected) DisableClicking();
+
         Utilities.Instance.ANIM_Move(clickedObj, destinationObj.transform.position, callBack: () => {
             AssignImageDisplay(clickedObj.transform.GetChild(0).GetComponent<Image>(), destinationObj);
             destinationObj.gameObject.SetActive(true);
@@ -237,6 +272,46 @@ public class Thumbnail7Controller : MonoBehaviour
             Invoke(nameof(EvaluateAnswer), 0.5f);
             // EvaluateAnswer();
         });
+    }
+#endregion
+
+#region QA
+
+    int GetQuestionID(string selectedQues)
+    {
+        for (int i = 0; i < questions.Length; i++)
+        {
+            if (questions[i].text.Contains(selectedQues))
+            {
+                return questions[i].id;
+            }
+        }
+        return -1;
+    }
+
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text.Contains(selectedOption))
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
     }
 #endregion
 

@@ -6387,7 +6387,7 @@ MonoBehaviour:
   dotNavigation: {fileID: 5587537215175494652}
   displayText: {fileID: 5750804773682584666}
   objClip:
-  - {fileID: 8300000, guid: c6338c05ea1bf674dbd8ed4c19431f7d, type: 3}
+  - {fileID: 8300000, guid: 28824c78602344e44b822d8c3e6ab252, type: 3}
   - {fileID: 8300000, guid: 156848315ef4c5f4da4fddee4240503f, type: 3}
   - {fileID: 8300000, guid: 5cc2da498356b1249b391fda4c8e6b43, type: 3}
   - {fileID: 8300000, guid: ba16a1175fd9ea84da0392b949b87b1b, type: 3}
