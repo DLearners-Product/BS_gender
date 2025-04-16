@@ -27,13 +27,13 @@ public class Thumbnail5Controller : MonoBehaviour
     int prevIndex = 0, currentIndex = 0;
     List<EnvironmentData> currentEnv;
     List<CattleData> currentCattleData;
-    Transform displayPanelOrgPos;
+    Vector3 displayPanelOrgPos;
 
     void Start()
     {
         currentCattleData = maleCattleData;
         PlayGenderTypeAudio(genderPanelAudioClip[0]);
-        displayPanelOrgPos = textDisplayPanel.transform;
+        displayPanelOrgPos = textDisplayPanel.transform.position;
         LowerDisplayPanel(0f);
         backBTN.interactable = false;
         nextBTN.interactable = false;
@@ -157,8 +157,8 @@ public class Thumbnail5Controller : MonoBehaviour
             });
     }
 
-    void LowerDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, displayPanelOrgPos.position + Vector3.down * 2f, moveTime);
-    void RiseDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, displayPanelOrgPos.position + Vector3.up * 2f, moveTime);
+    void LowerDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, displayPanelOrgPos + Vector3.down * 2f, moveTime);
+    void RiseDisplayPanel(float moveTime) => Utilities.Instance.ANIM_Move(textDisplayPanel, textDisplayPanel.transform.position + Vector3.up * 2f, moveTime);
     void RemoveAnimal() => currentCattleData[prevIndex].ResetPosition(ChangeAnimal);
 
     void ShrinkPanelAndExpand(string displayContent, AudioClip genderAudioClip)
